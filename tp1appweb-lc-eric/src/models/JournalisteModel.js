@@ -1,8 +1,8 @@
 import Role from "./Role.js";
-import Utilisateur from "./Utilisateur.js";
+import UtilisateurModel from "./UtilisateurModel.js";
 
 
-export default class Journaliste extends Utilisateur{
+export default class JournalisteModel extends UtilisateurModel{
     _nouvelles;
 
     constructor(nom, dateInscription, dateNaissance, id, nouvelles) {

@@ -1,6 +1,6 @@
 "use strict";
 
-export default class Utilisateur{
+export default class UtilisateurModel {
     _id;
     _nom;
     _dateInscription;

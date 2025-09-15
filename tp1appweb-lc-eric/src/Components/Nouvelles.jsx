@@ -7,7 +7,7 @@ export default function Nouvelles({news, setNews}){
     </Nouvelle> )
 
     return(
-        <div className="flexContainer">
+        <div>
             {nouvelles}
         </div>
     );

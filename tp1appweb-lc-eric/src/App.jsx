@@ -2,18 +2,24 @@ import './App.css'
 import {useState} from "react";
 import Nouvelles from "./Components/Nouvelles.jsx";
 import {nouvelles} from "./scripts/nouvelles.js"
-
+import {NewsContext} from "./Components/NewsContext.jsx";
 
 
 function App() {
 
+    //Etat des nouvelles
     const [news, setNews] = useState(nouvelles)
-  return (
-    <div>
-        <Nouvelles news={news} setNews={setNews}>
-        </Nouvelles>
-    </div>
-  )
+
+    return (
+        <>
+            <NewsContext.Provider value={{news, setNews}}>
+                <div>
+                    <Nouvelles/>
+                </div>
+            </NewsContext.Provider>
+        </>
+
+    )
 }
 
 export default App

@@ -2,11 +2,15 @@ import UtilisateurModel from "../models/UtilisateurModel.js";
 import Role from "../models/Role.js";
 import {useRef} from "react";
 import Utilisateur from "./Utilisateur.jsx";
+import {utilisateursJson} from "../scripts/utilisateurs.js";
+import AdminModel from "../models/AdminModel.js";
+import JournalisteModel from "../models/JournalisteModel.js";
+
 
 
 export default function MenuUtilisateur(){
     let userId = useRef(1);
-    const utilisateurs = genererUtilisateurs()
+    let usersList = genererUtilisateurs(utilisateursJson);
 
 
     /**
@@ -17,18 +21,28 @@ export default function MenuUtilisateur(){
      * @param utilisateursJson
      */
     function genererUtilisateurs(utilisateursJson){
-        let users = []
+        let users = [];
         utilisateursJson.forEach(user => {
-            users.add(
-                new UtilisateurModel(user.nom,
-                    user.dateInscription,
-                    user.dateNaissance,
-                    user.role === "admin" ? Role.ADMIN : Role.JOURNALISTE,
-                    user.id
+            users.push(
+                user.role === "admin" ?
+                    new AdminModel(
+                        user.nom,
+                        user.dateInscription,
+                        user.dateNaissance,
+                        Role.ADMIN,
+                        user.id
+                    )
+                        :
+                    new JournalisteModel(
+                        user.nom,
+                        user.dateInscription,
+                        user.dateNaissance,
+                        Role.JOURNALISTE,
+                        user.id
                     )
             );
 
-            userId.current.currentTime = user.id; // on sauvegarde la derniere valeur de l'id
+            userId.current = user.id; // on sauvegarde la derniere valeur de l'id
         });
 
         return users;
@@ -36,7 +50,7 @@ export default function MenuUtilisateur(){
 
     return (
         <div>
-            {utilisateurs.map(user => <Utilisateur utilisateur={user}/>)}
+            {usersList.map(user => <Utilisateur utilisateur={user}/>)}
         </div>
     );
 }

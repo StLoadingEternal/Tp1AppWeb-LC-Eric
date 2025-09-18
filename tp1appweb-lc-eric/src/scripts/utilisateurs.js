@@ -1,33 +1,33 @@
 
 
-let utilisateurs =  [
+export const utilisateursJson =  [
     {
-        "_id": 1,
-        "_nom": "Admin User",
-        "_dateInscription": "2020-01-01",
-        "_dateNaissance": "1985-05-15",
-        "_role": "admin"
+        "id": 1,
+        "nom": "Admin User",
+        "dateInscription": "2020-01-01",
+        "dateNaissance": "1985-05-15",
+        "role": "admin"
     },
     {
-        "_id": 2,
-        "_nom": "Alice Dupont",
-        "_dateInscription": "2022-07-23",
-        "_dateNaissance": "1990-02-10",
-        "_role": "journaliste"
+        "id": 2,
+        "nom": "Alice Dupont",
+        "dateInscription": "2022-07-23",
+        "dateNaissance": "1990-02-10",
+        "role": "journaliste"
     },
     {
-        "_id": 3,
-        "_nom": "Marc Lefevre",
-        "_dateInscription": "2021-03-12",
-        "_dateNaissance": "1988-11-22",
-        "_role": "journaliste"
+        "id": 3,
+        "nom": "Marc Lefevre",
+        "dateInscription": "2021-03-12",
+        "dateNaissance": "1988-11-22",
+        "role": "journaliste"
     },
     {
-        "_id": 4,
-        "_nom": "Sophie Martin",
-        "_dateInscription": "2023-08-15",
-        "_dateNaissance": "1995-04-30",
-        "_role": "journaliste"
+        "id": 4,
+        "nom": "Sophie Martin",
+        "dateInscription": "2023-08-15",
+        "dateNaissance": "1995-04-30",
+        "role": "journaliste"
     }
 ];
 

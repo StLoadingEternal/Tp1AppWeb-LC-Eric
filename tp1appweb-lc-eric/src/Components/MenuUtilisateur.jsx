@@ -5,6 +5,7 @@ import Utilisateur from "./Utilisateur.jsx";
 import {utilisateursJson} from "../scripts/utilisateurs.js";
 import AdminModel from "../models/AdminModel.js";
 import JournalisteModel from "../models/JournalisteModel.js";
+import Typography from "@mui/material/Typography";
 
 
 
@@ -49,7 +50,11 @@ export default function MenuUtilisateur(){
     }
 
     return (
-        <div>
+
+        <div className={"menuUtilisateur"} >
+            <Typography variant="h6" gutterBottom>
+                Menu Utilisateur
+            </Typography>
             {usersList.map(user => <Utilisateur utilisateur={user}/>)}
         </div>
     );

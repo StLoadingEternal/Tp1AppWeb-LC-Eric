@@ -20,7 +20,7 @@ import ModeEditIcon from '@mui/icons-material/ModeEdit';
 import {InfoOutline} from "@mui/icons-material";
 import {useContext} from "react";
 import InfoOutlineSharpIcon from '@mui/icons-material/InfoOutlineSharp';
-import {NewsContext} from "./NewsContext.jsx";
+import {NewsContext} from "../NewsContext.jsx";
 
 
 // const ExpandMore = styled((props) => {

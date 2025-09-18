@@ -11,8 +11,8 @@ export default function Nouvelles(){
     //const noReference = useRef(10);
 
     const nouvelles = newsContext.news.map(news => <Nouvelle
-            {...news}
-            key={news.id}
+            nouvelleModel={news}
+            key={news.noReference}
         >
         </Nouvelle>
     )

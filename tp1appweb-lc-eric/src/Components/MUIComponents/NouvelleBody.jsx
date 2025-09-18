@@ -49,7 +49,7 @@ import {NewsContext} from "../NewsContext.jsx";
 
 //Composant pour la definiton du contenu des nouvelles
 //Les éléments en commentaires sont des parties du Mui que j'ai retiré
-export default function NouvelleBody(props) {
+export default function NouvelleBody({nouvelleModel}) {
 
     // const [expanded, setExpanded] = React.useState(false);
 
@@ -58,11 +58,14 @@ export default function NouvelleBody(props) {
     // };
 
     //Utilisation du newsContext
-    const newsContext = useContext(NewsContext)
+    const newsContext = useContext(NewsContext);
 
     //Effacer une nouvelle(Alert?)
     function handleClear() {
-        newsContext.setNews((ancien) => ancien.filter((nouvelle) => nouvelle.id !== props.id));
+        console.log(nouvelleModel);
+        newsContext.setNews((ancien) =>
+            ancien.filter((nouvelle) => nouvelle.noReference !== nouvelleModel.noReference)
+        );
     }
 
     return (
@@ -81,20 +84,20 @@ export default function NouvelleBody(props) {
                 }
                 title={
                     <Typography variant="h7" component="div" sx={{fontWeight: 'bold'}}>
-                        {props.titre}
+                        {nouvelleModel.titre}
                     </Typography>
                 }
-                subheader={props.date}
+                subheader={nouvelleModel.date}
             />
             <CardMedia
                 component="img"
                 height="194"
-                image={props.image}
+                image={nouvelleModel.image}
                 alt=""
             />
             <CardContent>
                 <Typography variant="body2" sx={{ color: 'text.secondary' }}>
-                    {props.resume}
+                    {nouvelleModel.resume}
                 </Typography>
             </CardContent>
             <CardActions disableSpacing>

@@ -3,11 +3,11 @@ import {Grid} from "@mui/material";
 
 
 
-export default function Nouvelle(props){
+export default function Nouvelle({nouvelleModel}){
  return (
      <Grid
          size={4}>
-        <NouvelleBody {...props}></NouvelleBody>
+        <NouvelleBody nouvelleModel={nouvelleModel}></NouvelleBody>
      </Grid>
 
  );

@@ -1,6 +1,6 @@
 import UtilisateurModel from "../models/UtilisateurModel.js";
 import Role from "../models/Role.js";
-import {useRef} from "react";
+import {useRef, useState} from "react";
 import Utilisateur from "./Utilisateur.jsx";
 import {utilisateursJson} from "../scripts/utilisateurs.js";
 import AdminModel from "../models/AdminModel.js";
@@ -9,7 +9,7 @@ import Typography from "@mui/material/Typography";
 
 
 
-export default function MenuUtilisateur(){
+export default function MenuUtilisateur({userRef}){
     let userId = useRef(1);
     let usersList = genererUtilisateurs(utilisateursJson);
 
@@ -23,6 +23,7 @@ export default function MenuUtilisateur(){
      */
     function genererUtilisateurs(utilisateursJson){
         let users = [];
+
         utilisateursJson.forEach(user => {
             users.push(
                 user.role === "admin" ?
@@ -30,7 +31,6 @@ export default function MenuUtilisateur(){
                         user.nom,
                         user.dateInscription,
                         user.dateNaissance,
-                        Role.ADMIN,
                         user.id
                     )
                         :
@@ -38,7 +38,6 @@ export default function MenuUtilisateur(){
                         user.nom,
                         user.dateInscription,
                         user.dateNaissance,
-                        Role.JOURNALISTE,
                         user.id
                     )
             );
@@ -49,13 +48,14 @@ export default function MenuUtilisateur(){
         return users;
     }
 
+
     return (
 
         <div className={"menuUtilisateur"} >
             <Typography variant="h6" gutterBottom>
                 Menu Utilisateur
             </Typography>
-            {usersList.map(user => <Utilisateur utilisateur={user}/>)}
+            {usersList.map(user => <Utilisateur currentUser={userRef} utilisateur={user}/>)}
         </div>
     );
 }

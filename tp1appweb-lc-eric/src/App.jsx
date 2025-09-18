@@ -1,5 +1,5 @@
 import './App.css'
-import {useState} from "react";
+import {useRef, useState} from "react";
 import Nouvelles from "./Components/Nouvelles.jsx";
 import {nouvelles} from "./scripts/nouvelles.js"
 import {NewsContext} from "./Components/NewsContext.jsx";
@@ -8,10 +8,17 @@ import {Container, Grid} from "@mui/material";
 import MenuUtilisateurBody from "./Components/MUIComponents/MenuUtilisateursBody.jsx";
 
 
+
 function App() {
+    // listes des nouvelles (Exemple de BD nouvelles)
+
 
     //Etat des nouvelles
     const [news, setNews] = useState(nouvelles)
+
+    //Recuperer l'utilisateur connecté
+    let userRef = useRef();
+
 
     return (
         <>
@@ -36,7 +43,7 @@ function App() {
 
                 <Grid size={2}>
                     <MenuUtilisateurBody>
-                        <MenuUtilisateur className={"menuUtilisateur"}/>
+                        <MenuUtilisateur userRef={userRef} className={"menuUtilisateur"}/>
                     </MenuUtilisateurBody>
 
                 </Grid>

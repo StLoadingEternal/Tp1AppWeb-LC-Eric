@@ -1,24 +1,53 @@
 import './App.css'
 import {useRef, useState} from "react";
 import Nouvelles from "./Components/Nouvelles.jsx";
-import {nouvelles} from "./scripts/nouvelles.js"
+
 import {NewsContext} from "./Components/NewsContext.jsx";
 import MenuUtilisateur from "./Components/MenuUtilisateur.jsx";
 import {Container, Grid} from "@mui/material";
 import MenuUtilisateurBody from "./Components/MUIComponents/MenuUtilisateursBody.jsx";
+import {nouvelles} from "./scripts/nouvelles.js";
+import NouvelleModel from "./models/NouvelleModel.js";
 
+function genererNouvelles(){
+    let nouvellesGenereres = [];
+    let sauvegarde = window.localStorage.getItem("nouvelles");
+
+    if (sauvegarde === null) {
+        nouvellesGenereres = nouvelles.map(nouvelle => new NouvelleModel(
+            nouvelle.id,
+            nouvelle.date,
+            nouvelle.titre,
+            nouvelle.image,
+            nouvelle.texte,
+            nouvelle.resume
+        ));
+        window.localStorage.setItem("nouvelles", JSON.stringify(nouvellesGenereres));
+    }
+    else {
+        let parsed = JSON.parse(sauvegarde);
+        nouvellesGenereres = parsed.map(nouvelle => new NouvelleModel(
+            nouvelle.id,
+            nouvelle.date,
+            nouvelle.titre,
+            nouvelle.image,
+            nouvelle.texte,
+            nouvelle.resume
+        ));
+    }
+
+    return nouvellesGenereres;
+}
 
 
 function App() {
-    // listes des nouvelles (Exemple de BD nouvelles)
 
 
     //Etat des nouvelles
-    const [news, setNews] = useState(nouvelles)
+    const [news, setNews] = useState(genererNouvelles)
 
     //Recuperer l'utilisateur connecté
     let userRef = useRef();
-
 
     return (
         <>

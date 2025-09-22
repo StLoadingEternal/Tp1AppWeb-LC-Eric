@@ -1,7 +1,6 @@
 import './App.css'
 import {useEffect, useRef, useState} from "react";
 import Nouvelles from "./Components/Nouvelles.jsx";
-
 import {NewsContext} from "./Components/NewsContext.jsx";
 import MenuUtilisateur from "./Components/MenuUtilisateur.jsx";
 import {Container, Grid} from "@mui/material";
@@ -52,8 +51,8 @@ function genererNouvelles(){
 
 function App() {
 
-    //Etat des nouvelles
-    const [news, setNews] = useState(genererNouvelles)
+    //Le modèle affichait un bug à régler
+    const [news, setNews] = useState(nouvelles)
 
     //Recuperer l'utilisateur connecté
     let userRef = useRef();

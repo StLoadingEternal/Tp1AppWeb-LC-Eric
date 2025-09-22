@@ -11,24 +11,33 @@ import ModeEditIcon from "@mui/icons-material/ModeEdit";
 import { v4 as uuidv4 } from 'uuid';
 import Typography from "@mui/material/Typography";
 
-export default function Nouvelles() {
+export default function Nouvelles({currentUser}) {
     const [editing, setEditing] = useState({ isEditing: false, id: -1 });
     const [deleting, setDeleting] = useState({ isDeleting: false, id: -1 });
 
-    const newsContext = useContext(NewsContext)
+    const newsContext = useContext(NewsContext);
     //A voir l'utilisation de la référence
     //utilisation de UUID pour les ID
+    console.log(currentUser)
+    const nouvelles = newsContext.news.map(nouvelle => {
+        if(nouvelle._createurs.includes(parseInt(currentUser))){
 
-    const nouvelles = newsContext.news.map(nouvelle => <Nouvelle
-            newsProps = {nouvelle}//Les props de la nouvelle
-            key={nouvelle.noReference}
-            editer={editer}
-            supprimer={supprimer}
-        >
-        </Nouvelle>
+            return(
+                <Nouvelle
+                    newsProps = {nouvelle}//Les props de la nouvelle
+                    key={nouvelle.id}
+                    editer={editer}
+                    supprimer={supprimer}
+                >
+                </Nouvelle>
+            );
+
+        }
+
+        }
     )
 
-    console.log(nouvelles)
+
 
     function editer(id) {
         setEditing({ isEditing: true, id: id });

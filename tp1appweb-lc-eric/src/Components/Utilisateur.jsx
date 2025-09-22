@@ -5,21 +5,19 @@ import ListItem from "@mui/material/ListItem";
 import ListItemText from "@mui/material/ListItemText";
 import {useContext} from "react";
 import {NewsContext} from "./NewsContext.jsx";
+import {UtilisateurContext} from "./utilisateurContext.jsx";
 
-export default function Utilisateur({currentUser, utilisateur}){
+export default function Utilisateur({utilisateur}){
+    let utilisateurContext = useContext(UtilisateurContext);
 
-    let newsContext = useContext(NewsContext);
 
     function changerUtilisateur() {
-        currentUser.current = utilisateur.id;
-       // newsContext.setNews(
-         //
-        //)
+        utilisateurContext.setUserActu(utilisateur.id);
+
     }
 
     return (
         <ListItem
-            ref={currentUser}
             key={utilisateur.id}
             disablePadding
         >

@@ -1,16 +1,18 @@
 import UtilisateurModel from "../models/UtilisateurModel.js";
 import Role from "../models/Role.js";
-import {useRef, useState} from "react";
+
 import Utilisateur from "./Utilisateur.jsx";
 import {utilisateursJson} from "../scripts/utilisateurs.js";
 import AdminModel from "../models/AdminModel.js";
 import JournalisteModel from "../models/JournalisteModel.js";
 import Typography from "@mui/material/Typography";
+import {UtilisateurContext} from "./utilisateurContext.jsx";
+import {useRef} from "react";
 
 
 
-export default function MenuUtilisateur({userRef}){
-    let userId = useRef(1);
+export default function MenuUtilisateur(){
+    const userId = useRef();
     let usersList = genererUtilisateurs(utilisateursJson);
 
 
@@ -33,7 +35,7 @@ export default function MenuUtilisateur({userRef}){
                         user.dateNaissance,
                         user.id
                     )
-                        :
+                    :
                     new JournalisteModel(
                         user.nom,
                         user.dateInscription,
@@ -55,7 +57,7 @@ export default function MenuUtilisateur({userRef}){
             <Typography variant="h6" gutterBottom>
                 Menu Utilisateur
             </Typography>
-            {usersList.map(user => <Utilisateur currentUser={userRef} utilisateur={user}/>)}
+            {usersList.map(user => <Utilisateur  utilisateur={user}/>)}
         </div>
     );
 }

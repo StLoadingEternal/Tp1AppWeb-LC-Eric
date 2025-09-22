@@ -2,28 +2,30 @@ export default class NouvelleModel {
 
     _date;
     _titre;
-    _noReference;
+    _id;
     _image;
     _texte;
     _resume;
+    _createurs;
 
 
-    constructor(noReference, date, titre, image, texte, resume) {
-        this._noReference = noReference;
+    constructor(noReference, date, titre, image, texte, resume, createurs) {
+        this._id = noReference;
         this._date = date;
         this._titre = titre;
         this._image = image;
         this._texte = texte;
         this._resume = resume;
+        this._createurs = createurs;
     }
 
 
-    get noReference() {
-        return this._noReference;
+    get id() {
+        return this._id;
     }
 
-    set noReference(value) {
-        this._noReference = value;
+    set id(value) {
+        this._id = value;
     }
 
     get date() {
@@ -66,14 +68,23 @@ export default class NouvelleModel {
         this._resume = value;
     }
 
+    get createurs() {
+        return this._createurs;
+    }
+
+    set createurs(value) {
+        this._createurs = value;
+    }
+
     toJSON() {
         return {
-            noReference: this._noReference,
+            id: this._id,
             date: this._date,
             titre: this._titre,
             image: this._image,
             texte: this._texte,
-            resume: this._resume
+            resume: this._resume,
+            createurs: this._createurs
         };
     }
 }

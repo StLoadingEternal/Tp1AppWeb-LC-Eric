@@ -42,8 +42,10 @@ function genererNouvelles(){
             nouvelle.texte,
             nouvelle.resume
         ));
+
     }
 
+    console.log(nouvellesGenereres)
     return nouvellesGenereres;
 }
 
@@ -52,7 +54,7 @@ function genererNouvelles(){
 function App() {
 
     //Le modèle affichait un bug à régler
-    const [news, setNews] = useState(nouvelles)
+    const [news, setNews] = useState(genererNouvelles())
 
     //Recuperer l'utilisateur connecté
     let userRef = useRef();

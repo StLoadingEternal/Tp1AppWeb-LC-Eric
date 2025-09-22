@@ -3,12 +3,8 @@ import {Grid} from "@mui/material";
 
 
 
-export default function Nouvelle(props){
+export default function Nouvelle({editer, supprimer, ...props}){
  return (
-     <Grid
-         size={4}>
-        <NouvelleBody {...props}></NouvelleBody>
-     </Grid>
-
+        <NouvelleBody editer={editer} supprimer={supprimer} {...props}></NouvelleBody>
  );
 }

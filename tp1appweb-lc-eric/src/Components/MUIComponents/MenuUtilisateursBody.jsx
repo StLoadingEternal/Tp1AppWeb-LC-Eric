@@ -8,14 +8,15 @@ import Checkbox from '@mui/material/Checkbox';
 import Avatar from '@mui/material/Avatar';
 import Utilisateur from "../Utilisateur.jsx";
 import MenuUtilisateur from "../MenuUtilisateur.jsx";
+import {Grid} from "@mui/material";
 
 export default function MenuUtilisateurBody({children}) {
 
 
     return (
-        <List dense sx={{
-            width: 'maxLength', maxWidth: 360, bgcolor: 'background.black' }}>
-            {children}
-        </List>
+            <List dense sx={{
+                width: 'maxLength', maxWidth: 360, bgcolor: 'background.black' }}>
+                {children}
+            </List>
     );
 }

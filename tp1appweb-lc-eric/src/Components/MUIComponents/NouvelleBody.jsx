@@ -1,132 +1,66 @@
 import * as React from 'react';
-//import { styled } from '@mui/material/styles';
-import Card from '@mui/material/Card';
-import CardHeader from '@mui/material/CardHeader';
-import CardMedia from '@mui/material/CardMedia';
-import CardContent from '@mui/material/CardContent';
-import CardActions from '@mui/material/CardActions';
-import Collapse from '@mui/material/Collapse';
-import Avatar from '@mui/material/Avatar';
-import IconButton from '@mui/material/IconButton';
-import Typography from '@mui/material/Typography';
-import { red } from '@mui/material/colors';
-import FavoriteIcon from '@mui/icons-material/Favorite';
-import ShareIcon from '@mui/icons-material/Share';
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import MoreVertIcon from '@mui/icons-material/MoreVert';
+import {Card, CardMedia, CardContent, CardActions, IconButton, Typography, Box} from '@mui/material';
 import ClearIcon from '@mui/icons-material/Clear';
-import {Drawer} from "@mui/material";
 import ModeEditIcon from '@mui/icons-material/ModeEdit';
-import {InfoOutline} from "@mui/icons-material";
-import {useContext} from "react";
 import InfoOutlineSharpIcon from '@mui/icons-material/InfoOutlineSharp';
-import {NewsContext} from "../NewsContext.jsx";
 
-
-// const ExpandMore = styled((props) => {
-//     const {expand, ...other } = props;
-//     return <IconButton {...other} />;
-// })(({ theme }) => ({
-//     marginLeft: 'auto',
-//     transition: theme.transitions.create('transform', {
-//         duration: theme.transitions.duration.shortest,
-//     }),
-//     variants: [
-//         {
-//             props: ({ expand }) => !expand,
-//             style: {
-//                 transform: 'rotate(0deg)',
-//             },
-//         },
-//         {
-//             props: ({ expand }) => !!expand,
-//             style: {
-//                 transform: 'rotate(180deg)',
-//             },
-//         },
-//     ],
-// }));
-
-//Composant pour la definiton du contenu des nouvelles
-//Les éléments en commentaires sont des parties du Mui que j'ai retiré
-export default function NouvelleBody(props) {
-
-    // const [expanded, setExpanded] = React.useState(false);
-
-    // const handleExpandClick = () => {
-    //     setExpanded(!expanded);
-    // };
-
-    //Utilisation du newsContext
-    const newsContext = useContext(NewsContext)
-
-    //Effacer une nouvelle(Alert?)
-    function handleClear() {
-        newsContext.setNews((ancien) => ancien.filter((nouvelle) => nouvelle.id !== props.id));
-    }
-
+export default function NouvelleBody({ editer, supprimer, ...props }) {
     return (
-        //Composant MUI qu'on a retravaillé
-        <Card sx={{ maxWidth: 360, height:'100%'}}>
-            <CardHeader
-                avatar={
-                    <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe">
-                        R
-                    </Avatar>
+        <Card
+            sx={{
+                maxWidth: 500,
+                margin: "auto",
+                borderRadius: 3,
+                boxShadow: 5,
+                transition: 'transform 0.3s ease, box-shadow 0.3s ease',
+                '&:hover': {
+                    transform: 'scale(1.03)',
+                    boxShadow: 8
                 }
-                action={
-                    <IconButton aria-label="settings">
-                        <MoreVertIcon />
-                    </IconButton>
-                }
-                title={
-                    <Typography variant="h7" component="div" sx={{fontWeight: 'bold'}}>
-                        {props.titre}
-                    </Typography>
-                }
-                subheader={props.date}
-            />
+            }}
+        >
+            {/* Image pleine largeur */}
             <CardMedia
                 component="img"
-                height="194"
+                height="250"
                 image={props.image}
-                alt=""
+                alt={props.titre}
+                sx={{
+                    objectFit: 'cover'
+                }}
             />
-            <CardContent>
-                <Typography variant="body2" sx={{ color: 'text.secondary' }}>
+
+            <Box sx={{ px: 3, pt: 2 }}>
+                <Typography variant="h5" sx={{ fontWeight: 'bold' }}>
+                    {props.titre}
+                </Typography>
+                <Typography variant="body2" color="text.secondary" gutterBottom>
+                    {new Date(props.date).toLocaleDateString("fr-FR", {
+                        weekday: 'long',
+                        year: 'numeric',
+                        month: 'long',
+                        day: 'numeric'
+                    })}
+                </Typography>
+            </Box>
+
+            <CardContent sx={{ px: 3, pt: 1 }}>
+                <Typography variant="body1" sx={{ color: 'text.primary' }}>
                     {props.resume}
                 </Typography>
             </CardContent>
-            <CardActions disableSpacing>
-                <IconButton aria-label="Modify">
-                    <ModeEditIcon/>
+
+            <CardActions disableSpacing sx={{ px: 2 }}>
+                <IconButton aria-label="Modifier" onClick={() => editer(props.id)}>
+                    <ModeEditIcon />
                 </IconButton>
-                <IconButton aria-label="Clear">
-                    <ClearIcon onClick={handleClear}></ClearIcon>
+                <IconButton aria-label="Supprimer" onClick={() => supprimer(props.id)}>
+                    <ClearIcon />
                 </IconButton>
-                <IconButton>
-                    <InfoOutlineSharpIcon aria-label="show more"></InfoOutlineSharpIcon>
+                <IconButton aria-label="Détails">
+                    <InfoOutlineSharpIcon />
                 </IconButton>
             </CardActions>
-
         </Card>
     );
 }
-
-// <ExpandMore
-//     expand={expanded}
-//     onClick={handleExpandClick}
-//     aria-expanded={expanded}
-//     aria-label="show more"
-// >
-//     <ExpandMoreIcon />
-// </ExpandMore>
-
-// <Collapse in={expanded} timeout="auto" unmountOnExit>
-//     <CardContent>
-//         <Typography sx={{ marginBottom: 2 }}>Texte:</Typography>
-//         <Typography sx={{ marginBottom: 2 }}>
-//             {props.texte}
-//         </Typography>
-//     </CardContent>
-// </Collapse>

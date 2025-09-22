@@ -15,16 +15,18 @@ export default function Nouvelles() {
     const [editing, setEditing] = useState({ isEditing: false, id: -1 });
     const [deleting, setDeleting] = useState({ isDeleting: false, id: -1 });
 
-    const newsContext = useContext(NewsContext);
+    const newsContext = useContext(NewsContext)
+    //A voir l'utilisation de la référence
+    //utilisation de UUID pour les ID
 
-    const nouvelles = newsContext.news.map(news => (
-        <Nouvelle
-            {...news}
-            key={news.id}
+    const nouvelles = newsContext.news.map(news => <Nouvelle
+            {...news}//Les props de la nouvelle
+            key={news.noReference}
             editer={editer}
             supprimer={supprimer}
-        />
-    ));
+        >
+        </Nouvelle>
+    )
 
     function editer(id) {
         setEditing({ isEditing: true, id: id });

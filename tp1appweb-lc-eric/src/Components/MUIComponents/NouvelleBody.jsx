@@ -3,8 +3,23 @@ import {Card, CardMedia, CardContent, CardActions, IconButton, Typography, Box} 
 import ClearIcon from '@mui/icons-material/Clear';
 import ModeEditIcon from '@mui/icons-material/ModeEdit';
 import InfoOutlineSharpIcon from '@mui/icons-material/InfoOutlineSharp';
+import {NewsContext} from "../NewsContext.jsx";
 
-export default function NouvelleBody({ editer, supprimer, ...props }) {
+
+
+
+export default function NouvelleBody({editer, supprimer, ...props }) {
+    //Utilisation du newsContext
+    //const newsContext = useContext(NewsContext);
+
+    // //Effacer une nouvelle(Alert?)
+    // function handleClear() {
+    //     console.log(nouvelleModel);
+    //     newsContext.setNews((ancien) =>
+    //         ancien.filter((nouvelle) => nouvelle.noReference !== nouvelleModel.noReference)
+    //     );
+    // }
+
     return (
         <Card
             sx={{
@@ -64,3 +79,25 @@ export default function NouvelleBody({ editer, supprimer, ...props }) {
         </Card>
     );
 }
+
+//     action={
+//     <IconButton aria-label="settings">
+//         <MoreVertIcon />
+//     </IconButton>
+// }
+//     title={
+//     <Typography variant="h7" component="div" sx={{fontWeight: 'bold'}}>
+//         {nouvelleModel.titre}
+//     </Typography>
+// }
+//     subheader={nouvelleModel.date}
+//     />
+//     <CardMedia
+//         component="img"
+//         height="194"
+//         image={nouvelleModel.image}
+//         alt=""
+//     />
+//     <CardContent>
+//         <Typography variant="body2" sx={{ color: 'text.secondary' }}>
+//             {nouvelleModel.resume}

@@ -19,14 +19,16 @@ export default function Nouvelles() {
     //A voir l'utilisation de la référence
     //utilisation de UUID pour les ID
 
-    const nouvelles = newsContext.news.map(news => <Nouvelle
-            {...news}//Les props de la nouvelle
-            key={news.noReference}
+    const nouvelles = newsContext.news.map(nouvelle => <Nouvelle
+            newsProps = {nouvelle}//Les props de la nouvelle
+            key={nouvelle.noReference}
             editer={editer}
             supprimer={supprimer}
         >
         </Nouvelle>
     )
+
+    console.log(nouvelles)
 
     function editer(id) {
         setEditing({ isEditing: true, id: id });

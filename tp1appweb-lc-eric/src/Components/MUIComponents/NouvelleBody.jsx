@@ -8,7 +8,7 @@ import {NewsContext} from "../NewsContext.jsx";
 
 
 
-export default function NouvelleBody({editer, supprimer, ...props }) {
+export default function NouvelleBody({editer, supprimer, newsProps }) {
     //Utilisation du newsContext
     //const newsContext = useContext(NewsContext);
 
@@ -38,8 +38,8 @@ export default function NouvelleBody({editer, supprimer, ...props }) {
             <CardMedia
                 component="img"
                 height="250"
-                image={props.image}
-                alt={props.titre}
+                image={newsProps.image}
+                alt={newsProps.titre}
                 sx={{
                     objectFit: 'cover'
                 }}
@@ -47,10 +47,10 @@ export default function NouvelleBody({editer, supprimer, ...props }) {
 
             <Box sx={{ px: 3, pt: 2 }}>
                 <Typography variant="h5" sx={{ fontWeight: 'bold' }}>
-                    {props.titre}
+                    {newsProps.titre}
                 </Typography>
                 <Typography variant="body2" color="text.secondary" gutterBottom>
-                    {new Date(props.date).toLocaleDateString("fr-FR", {
+                    {new Date(newsProps.date).toLocaleDateString("fr-FR", {
                         weekday: 'long',
                         year: 'numeric',
                         month: 'long',
@@ -61,15 +61,15 @@ export default function NouvelleBody({editer, supprimer, ...props }) {
 
             <CardContent sx={{ px: 3, pt: 1 }}>
                 <Typography variant="body1" sx={{ color: 'text.primary' }}>
-                    {props.resume}
+                    {newsProps.resume}
                 </Typography>
             </CardContent>
 
             <CardActions disableSpacing sx={{ px: 2 }}>
-                <IconButton aria-label="Modifier" onClick={() => editer(props.id)}>
+                <IconButton aria-label="Modifier" onClick={() => editer(newsProps.id)}>
                     <ModeEditIcon />
                 </IconButton>
-                <IconButton aria-label="Supprimer" onClick={() => supprimer(props.id)}>
+                <IconButton aria-label="Supprimer" onClick={() => supprimer(newsProps.id)}>
                     <ClearIcon />
                 </IconButton>
                 <IconButton aria-label="Détails">

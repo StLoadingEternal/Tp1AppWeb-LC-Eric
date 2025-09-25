@@ -12,6 +12,7 @@ import NouvelleModel from "./models/NouvelleModel.js";
 import {UtilisateurContext} from "./Components/utilisateurContext.jsx";
 import {CritereContext} from "./Components/CritereContext.jsx";
 import FormCritere from "./Components/FormComponents/FormCritere.jsx";
+import CritereModel from "./models/CritereModel.js";
 
 
 /**
@@ -53,7 +54,25 @@ function genererNouvelles(){
     return nouvellesGenereres;
 }
 
+function lireCriteresSauvegardes(){
+    let critereGeneres = [];
+    let sauvegarde = window.localStorage.getItem("criteres");
 
+    if (sauvegarde !== null ){
+        let parsed = JSON.parse(sauvegarde);
+        critereGeneres = parsed.map(cr => new CritereModel(
+            cr.id,
+            cr.noReference,
+            cr.titre,
+            cr.date,
+            cr.categorie,
+            cr.anneeNouvelle,
+            cr.motsCles
+        ));
+    }
+
+    return critereGeneres;
+}
 
 
 function App() {
@@ -61,7 +80,7 @@ function App() {
     //Le modèle affichait un bug à régler
     const [news, setNews] = useState(genererNouvelles());
     const [userActuId, setUserActu] = useState(1);
-    const [criteres, setCriteres] = useState([]);
+    const [criteres, setCriteres] = useState(lireCriteresSauvegardes);
 
     //Recuperer l'utilisateur connecté
 
@@ -70,6 +89,10 @@ function App() {
         window.localStorage.setItem("nouvelles", JSON.stringify(news));
     }, [news]);
 
+    // sauvegarder les criteres
+    useEffect(() => {
+        window.localStorage.setItem("criteres", JSON.stringify(criteres));
+    }, [criteres]);
 
 
     return (

@@ -70,4 +70,16 @@ export default  class CritereModel{
     set motsCles(value) {
         this._motsCles = value;
     }
+
+    toJSON() {
+        return {
+            id: this._id,
+            noReference: this._noReference,
+            titre: this._titre,
+            date: this._date,
+            categorie: this._categorie,
+            anneeNouvelle: this._anneeNouvelle,
+            mocles: this._motsCles
+        };
+    }
 }

@@ -8,34 +8,69 @@ import FormNews from "./FormComponents/FormNews.jsx";
 import Button from "@mui/material/Button";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import ModeEditIcon from "@mui/icons-material/ModeEdit";
-import { v4 as uuidv4 } from 'uuid';
+import {parse, v4 as uuidv4} from 'uuid';
 import Typography from "@mui/material/Typography";
+import {CritereContext} from "./CritereContext.jsx";
 
 export default function Nouvelles({currentUser}) {
     const [editing, setEditing] = useState({ isEditing: false, id: -1 });
     const [deleting, setDeleting] = useState({ isDeleting: false, id: -1 });
+    let criteres = useContext(CritereContext).criteres;
 
     const newsContext = useContext(NewsContext);
     //A voir l'utilisation de la référence
     //utilisation de UUID pour les ID
-    console.log(currentUser)
-    const nouvelles = newsContext.news.map(nouvelle => {
-        if(nouvelle._createurs.includes(parseInt(currentUser))){
 
-            return(
+    /**
+     * Cette methode permet de checker si la nouvelle est verifi/e le critere
+     * @param cr
+     * @param nouvelle
+     * @returns {false|*|boolean}
+     */
+    function verifieCriteres(cr, nouvelle) {
+        const texteNouvelle = (nouvelle.texte + nouvelle.resume).toLowerCase();
+        const anneeNouvelle = new Date(nouvelle.date).getFullYear();
+
+        if (cr.noReference !== parseInt(currentUser)) return false; // (les criteres ne s'appliquent qu'au journaliste qui le cree)
+
+        return (
+            // si l'annee selectionne correspond
+            cr.anneeNouvelle === anneeNouvelle &&
+            // si l'un des mots cles est contenu dans le resume ou le texte
+            cr.motsCles.some(mot => texteNouvelle.includes(mot.toLowerCase())) &&
+            // si la categorie correspond
+            cr.categorie === nouvelle.categorie
+        );
+    }
+
+    function filtrerNouvelles() {
+        return newsContext.news
+            .filter(nouvelle => {
+
+                // Le journaliste doit être le créateur (un journaliste ne peut voir que ses nouvelles)
+                if (!nouvelle._createurs.includes(parseInt(currentUser))) {
+                    return false;
+                }
+
+                // Si aucun critère, on affiche tout
+                if (criteres.length === 0)
+                    return true;
+
+                // Vérifier si au moins un critère correspond
+                return criteres.some(cr => { // on parcours les criteres
+                    return verifieCriteres(cr, nouvelle);
+                });
+            })
+            .map(nouvelle => (
                 <Nouvelle
-                    newsProps = {nouvelle}//Les props de la nouvelle
+                    newsProps={nouvelle}
                     key={nouvelle.id}
                     editer={editer}
                     supprimer={supprimer}
-                >
-                </Nouvelle>
-            );
+                />
+            ));
+    }
 
-        }
-
-        }
-    )
 
 
 
@@ -64,6 +99,7 @@ export default function Nouvelles({currentUser}) {
 
     const nouvelleEditee = newsContext.news.find(n => n.id === editing.id);
     const nouvelleASupprimer = newsContext.news.find(n => n.id === deleting.id);
+    const nouvelles = filtrerNouvelles();
 
     return (
         <>

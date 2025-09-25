@@ -10,6 +10,8 @@ import NouvelleAppBar from "./Components/MUIComponents/NouvelleAppBAr.jsx";
 import {nouvelles} from "./scripts/nouvelles.js";
 import NouvelleModel from "./models/NouvelleModel.js";
 import {UtilisateurContext} from "./Components/utilisateurContext.jsx";
+import {CritereContext} from "./Components/CritereContext.jsx";
+import FormCritere from "./Components/FormComponents/FormCritere.jsx";
 
 
 /**
@@ -59,6 +61,7 @@ function App() {
     //Le modèle affichait un bug à régler
     const [news, setNews] = useState(genererNouvelles());
     const [userActuId, setUserActu] = useState(1);
+    const [criteres, setCriteres] = useState([]);
 
     //Recuperer l'utilisateur connecté
 
@@ -67,33 +70,38 @@ function App() {
         window.localStorage.setItem("nouvelles", JSON.stringify(news));
     }, [news]);
 
+
+
     return (
         <>
             <UtilisateurContext.Provider value={{userActuId, setUserActu}}>
-                <Box sx={{
-                    backgroundImage: 'linear-gradient(135deg, #89f7fe 0%, #66a6ff 100%)',
-                    height: "100%",
-                    width: '100%',
-                    position: "relative",
-                }}>
-                    <NouvelleAppBar></NouvelleAppBar>
-                    <Grid
-                        className={"corps"}
-                        container spacing={1}>
-                        <Grid sx={{ height: "100vh", overflowY: 'scroll'}} size={10}>
+                <CritereContext.Provider value={{criteres, setCriteres}}>
+                    <Box sx={{
+                        backgroundImage: 'linear-gradient(135deg, #89f7fe 0%, #66a6ff 100%)',
+                        height: "100%",
+                        width: '100%',
+                        position: "relative",
+                    }}>
+                        <NouvelleAppBar></NouvelleAppBar>
+                        <Grid
+                            className={"corps"}
+                            container spacing={1}>
+                            <Grid sx={{ height: "100vh", overflowY: 'scroll'}} size={10}>
                                 <NewsContext.Provider value={{news, setNews}}>
                                     <Nouvelles currentUser = {userActuId}/>
                                 </NewsContext.Provider>
-                        </Grid>
-                        <Grid  size={2}>
+                            </Grid>
+                            <Grid  size={2}>
 
-                            <MenuUtilisateurBody>
-                                <MenuUtilisateur className={"menuUtilisateur"}/>
-                            </MenuUtilisateurBody>
+                                <MenuUtilisateurBody>
+                                    <MenuUtilisateur className={"menuUtilisateur"}/>
+                                    <FormCritere/>
+                                </MenuUtilisateurBody>
+                            </Grid>
                         </Grid>
-                    </Grid>
 
-                </Box>
+                    </Box>
+                </CritereContext.Provider>
             </UtilisateurContext.Provider>
         </>
     )

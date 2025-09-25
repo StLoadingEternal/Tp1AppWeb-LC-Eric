@@ -7,9 +7,10 @@ export default class NouvelleModel {
     _texte;
     _resume;
     _createurs;
+    _categorie;
 
 
-    constructor(noReference, date, titre, image, texte, resume, createurs) {
+    constructor(noReference, date, titre, image, texte, resume, createurs, categorie) {
         this._id = noReference;
         this._date = date;
         this._titre = titre;
@@ -17,8 +18,26 @@ export default class NouvelleModel {
         this._texte = texte;
         this._resume = resume;
         this._createurs = createurs;
+        this._categorie = categorie;
+        this._noReference = noReference;
     }
 
+
+    get noReference() {
+        return this._noReference;
+    }
+
+    set noReference(value) {
+        this._noReference = value;
+    }
+
+    get categorie() {
+        return this._categorie;
+    }
+
+    set categorie(value) {
+        this._categorie = value;
+    }
 
     get id() {
         return this._id;

@@ -3,7 +3,7 @@ import {useEffect, useState} from "react";
 import Nouvelles from "./Components/Nouvelles.jsx";
 import {NewsContext} from "./Components/NewsContext.jsx";
 import MenuUtilisateur from "./Components/MenuUtilisateur.jsx";
-import {Container, Grid} from "@mui/material";
+import {Card, CardContent, Container, Grid} from "@mui/material";
 import MenuUtilisateurBody from "./Components/MUIComponents/MenuUtilisateursBody.jsx";
 import Box from "@mui/material/Box";
 import NouvelleAppBar from "./Components/MUIComponents/NouvelleAppBAr.jsx";
@@ -13,6 +13,8 @@ import {UtilisateurContext} from "./Components/utilisateurContext.jsx";
 import {CritereContext} from "./Components/CritereContext.jsx";
 import FormCritere from "./Components/FormComponents/FormCritere.jsx";
 import CritereModel from "./models/CritereModel.js";
+import Typography from "@mui/material/Typography";
+import BarreCriteres from "./Components/BarreCriteres.jsx";
 
 
 /**
@@ -33,7 +35,8 @@ function genererNouvelles(){
             nouvelle.image,
             nouvelle.texte,
             nouvelle.resume,
-            nouvelle.createur
+            nouvelle.createur,
+            nouvelle.categorie
         ));
         window.localStorage.setItem("nouvelles", JSON.stringify(nouvellesGenereres));
     }
@@ -46,7 +49,8 @@ function genererNouvelles(){
             nouvelle.image,
             nouvelle.texte,
             nouvelle.resume,
-            nouvelle.createurs
+            nouvelle.createurs,
+            nouvelle.categorie
         ));
 
     }
@@ -81,6 +85,7 @@ function App() {
     const [news, setNews] = useState(genererNouvelles());
     const [userActuId, setUserActu] = useState(1);
     const [criteres, setCriteres] = useState(lireCriteresSauvegardes);
+    let criteresEnFonctionUser =criteres.filter(cr => cr.noReference === userActuId);
 
     //Recuperer l'utilisateur connecté
 
@@ -106,12 +111,15 @@ function App() {
                         position: "relative",
                     }}>
                         <NouvelleAppBar></NouvelleAppBar>
+
+                        <BarreCriteres criteres={criteresEnFonctionUser} />
+
                         <Grid
                             className={"corps"}
                             container spacing={1}>
                             <Grid sx={{ height: "100vh", overflowY: 'scroll'}} size={10}>
                                 <NewsContext.Provider value={{news, setNews}}>
-                                    <Nouvelles currentUser = {userActuId}/>
+                                    <Nouvelles nouvelles = {nouvelles.filter(n => n.createur.includes(userActuId))} setNouvelles={setNews} criteres={criteresEnFonctionUser}/>
                                 </NewsContext.Provider>
                             </Grid>
                             <Grid  size={2}>

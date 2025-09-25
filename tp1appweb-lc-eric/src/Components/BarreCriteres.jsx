@@ -2,7 +2,7 @@ import Typography from "@mui/material/Typography";
 import {Card, CardActionArea, CardActions, CardContent, CardMedia} from "@mui/material";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
-import {useContext, useRef} from "react";
+import {useContext} from "react";
 import {CritereContext} from "./CritereContext.jsx";
 
 
@@ -12,7 +12,7 @@ export default function BarreCriteres({criteres}){
 
     return (
         <Box>
-            <Typography variant="h3" className="grandTitre" gutterBottom>
+            <Typography variant="h5" sx={{color : "white", textAlign: "left"}} className="grandTitre" gutterBottom>
                 Les Critères
             </Typography>
 

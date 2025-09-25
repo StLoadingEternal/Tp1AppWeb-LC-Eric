@@ -13,7 +13,7 @@ import MenuItem from '@mui/material/MenuItem';
 import Menu from '@mui/material/Menu';
 import BarDrawer from "../DrawerComponents/BarDrawer.jsx";
 
-export default function NouvelleAppBar() {
+export default function NouvelleAppBar({contenuDrawer}) {
 
 
     return (
@@ -27,11 +27,8 @@ export default function NouvelleAppBar() {
                         aria-label="menu"
                         sx={{ mr: 2 }}
                     >
-                       <BarDrawer/>
+                       <BarDrawer contenu={contenuDrawer}/>
                     </IconButton>
-                    <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-                        LASS & TED NOUVELLES
-                    </Typography>
                 </Toolbar>
             </AppBar>
         </Box>

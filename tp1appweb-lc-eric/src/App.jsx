@@ -102,14 +102,16 @@ function App() {
     }, [criteres]);
 
 
+    const barreCritere = <BarreCriteres criteres={criteresEnFonctionUser} />
+
     return (
         <>
             <UtilisateurContext.Provider value={{userActuId, setUserActu}}>
                 <CritereContext.Provider value={{criteres, setCriteres}}>
                     <Box className={"contenuPage"}>
-                        <NouvelleAppBar></NouvelleAppBar>
+                        <NouvelleAppBar contenuDrawer={barreCritere}/>
 
-                        <BarreCriteres criteres={criteresEnFonctionUser} />
+
 
                         <Grid
                             className={"corps"}
@@ -123,7 +125,7 @@ function App() {
 
                                 <MenuUtilisateurBody>
                                     <MenuUtilisateur className={"menuUtilisateur"}/>
-                                    <FormCritere/>
+
                                 </MenuUtilisateurBody>
                             </Grid>
                         </Grid>

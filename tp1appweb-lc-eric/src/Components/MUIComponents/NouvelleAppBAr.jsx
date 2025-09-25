@@ -18,7 +18,7 @@ export default function NouvelleAppBar() {
 
     return (
         <Box sx={{ flexGrow: 1 , marginBottom:2}}>
-            <AppBar position="static">
+            <AppBar position="static" className={"appBar"} >
                 <Toolbar>
                     <IconButton
                         size="large"

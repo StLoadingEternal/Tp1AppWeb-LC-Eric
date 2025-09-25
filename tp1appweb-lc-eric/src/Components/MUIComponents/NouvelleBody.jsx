@@ -22,6 +22,7 @@ export default function NouvelleBody({editer, supprimer, newsProps }) {
 
     return (
         <Card
+            className={"makeitglass"}
             sx={{
                 maxWidth: 500,
                 margin: "auto",
@@ -33,6 +34,8 @@ export default function NouvelleBody({editer, supprimer, newsProps }) {
                     boxShadow: 8
                 }
             }}
+
+
         >
             {/* Image pleine largeur */}
             <CardMedia
@@ -43,9 +46,10 @@ export default function NouvelleBody({editer, supprimer, newsProps }) {
                 sx={{
                     objectFit: 'cover'
                 }}
+
             />
 
-            <Box sx={{ px: 3, pt: 2 }}>
+            <Box sx={{ px: 3, pt: 2 , backgroundColor: "transparent"}}>
                 <Typography variant="h5" sx={{ fontWeight: 'bold' }}>
                     {newsProps.titre}
                 </Typography>
@@ -59,7 +63,7 @@ export default function NouvelleBody({editer, supprimer, newsProps }) {
                 </Typography>
             </Box>
 
-            <CardContent sx={{ px: 3, pt: 1 }}>
+            <CardContent sx={{ px: 3, pt: 1 }} >
                 <Typography variant="body1" sx={{ color: 'text.primary' }}>
                     {newsProps.resume}
                 </Typography>
@@ -79,25 +83,3 @@ export default function NouvelleBody({editer, supprimer, newsProps }) {
         </Card>
     );
 }
-
-//     action={
-//     <IconButton aria-label="settings">
-//         <MoreVertIcon />
-//     </IconButton>
-// }
-//     title={
-//     <Typography variant="h7" component="div" sx={{fontWeight: 'bold'}}>
-//         {nouvelleModel.titre}
-//     </Typography>
-// }
-//     subheader={nouvelleModel.date}
-//     />
-//     <CardMedia
-//         component="img"
-//         height="194"
-//         image={nouvelleModel.image}
-//         alt=""
-//     />
-//     <CardContent>
-//         <Typography variant="body2" sx={{ color: 'text.secondary' }}>
-//             {nouvelleModel.resume}

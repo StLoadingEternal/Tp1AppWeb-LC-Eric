@@ -54,7 +54,7 @@ export default function MenuUtilisateur(){
     return (
 
         <div className={"menuUtilisateur"} >
-            <Typography variant="h6" gutterBottom>
+            <Typography variant="h5" sx={{textAlign: "center", ml:2}} gutterBottom>
                 Menu Utilisateur
             </Typography>
             {usersList.map(user => <Utilisateur  utilisateur={user}/>)}

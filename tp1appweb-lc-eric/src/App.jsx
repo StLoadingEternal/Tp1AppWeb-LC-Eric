@@ -106,12 +106,7 @@ function App() {
         <>
             <UtilisateurContext.Provider value={{userActuId, setUserActu}}>
                 <CritereContext.Provider value={{criteres, setCriteres}}>
-                    <Box sx={{
-                        backgroundImage: 'linear-gradient(135deg, #89f7fe 0%, #66a6ff 100%)',
-                        height: "100%",
-                        width: '100%',
-                        position: "relative",
-                    }}>
+                    <Box className={"contenuPage"}>
                         <NouvelleAppBar></NouvelleAppBar>
 
                         <BarreCriteres criteres={criteresEnFonctionUser} />

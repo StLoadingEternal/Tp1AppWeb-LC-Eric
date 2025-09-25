@@ -1,10 +1,41 @@
+:root {
+    --lg-bg-color: rgba(255, 255, 255, 0.25);
+    --lg-highlight: rgba(255, 255, 255, 0.75);
+    --lg-text: #ffffff;
+    --lg-hover-glow: rgba(255, 255, 255, 0.4);
+    --lg-red: #fb4268;
+    --lg-grey: #5b5b5b;
+}
+
+
+.makeitglass{
+
+    font-weight: 600;
+    color: var(--lg-text);
+    cursor: pointer;
+    border-radius: 2rem;
+    overflow: hidden;
+    box-shadow: 0 6px 6px rgba(0, 0, 0, 0.2), 0 0 20px rgba(0, 0, 0, 0.1);
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 2.2);
+}
+
+
+.contenuPage{
+
+    height: 100%;
+    width: 100%;
+    position: relative;
+
+}
+
+
 .menuUtilisateur{
     width: max-content;
 }
 .grandTitre{
     font-Weight: bold;
     text-transform: uppercase;
-    color: #1976d2;
+    color: black;
     margin-top: 2px;
     margin-bottom: 2px;
     letter-spacing: 2px;
@@ -16,11 +47,12 @@
     gap: 2px;
     overflow-x: auto;
     padding: 2px 10px;
-    width: 100%;
-
-
+    width: max-content;
 
 }
 
+.appBar{
+    background-color: black !important;
+}
 
 

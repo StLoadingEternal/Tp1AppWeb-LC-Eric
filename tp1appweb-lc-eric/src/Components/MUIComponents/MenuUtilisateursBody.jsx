@@ -14,9 +14,12 @@ export default function MenuUtilisateurBody({children}) {
 
 
     return (
-            <List dense sx={{
-                width: 'maxLength', maxWidth: 360, bgcolor: 'background.black' }}>
-                {children}
-            </List>
+
+        <List dense sx={{
+            width: 'maxLength', maxWidth: 360, color: "black" }} className={"makeitglass"}>
+            {children}
+        </List>
+
+
     );
 }

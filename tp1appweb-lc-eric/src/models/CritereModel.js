@@ -79,7 +79,7 @@ export default  class CritereModel{
             date: this._date,
             categorie: this._categorie,
             anneeNouvelle: this._anneeNouvelle,
-            mocles: this._motsCles
+            motsCles: this._motsCles
         };
     }
 }

@@ -85,7 +85,9 @@ function App() {
     const [news, setNews] = useState(genererNouvelles());
     const [userActuId, setUserActu] = useState(1);
     const [criteres, setCriteres] = useState(lireCriteresSauvegardes);
-    let criteresEnFonctionUser =criteres.filter(cr => cr.noReference === userActuId);
+
+    let criteresEnFonctionUser =criteres.filter(cr => cr.noReference === userActuId); // les criteres sont tries en fonction de l'user connecte
+    let nouvelleEnFonctionUser = nouvelles.filter(n => n.createur.includes(userActuId));  // les nouvelles sont tries en fonction de l'user connecte
 
     //Recuperer l'utilisateur connecté
 
@@ -119,7 +121,7 @@ function App() {
                             container spacing={1}>
                             <Grid sx={{ height: "100vh", overflowY: 'scroll'}} size={10}>
                                 <NewsContext.Provider value={{news, setNews}}>
-                                    <Nouvelles nouvelles = {nouvelles.filter(n => n.createur.includes(userActuId))} setNouvelles={setNews} criteres={criteresEnFonctionUser}/>
+                                    <Nouvelles nouvelles = {nouvelleEnFonctionUser} setNouvelles={setNews} criteres={criteresEnFonctionUser}/>
                                 </NewsContext.Provider>
                             </Grid>
                             <Grid  size={2}>

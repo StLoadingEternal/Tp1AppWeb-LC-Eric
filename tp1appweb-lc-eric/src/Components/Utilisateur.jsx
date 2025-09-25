@@ -11,9 +11,9 @@ export default function Utilisateur({utilisateur}){
     let utilisateurContext = useContext(UtilisateurContext);
 
 
-    function changerUtilisateur() {
-        utilisateurContext.setUserActu(utilisateur.id);
-
+    function changerUtilisateur(e) {
+        utilisateurContext.setUserActu(old => utilisateur.id);
+        console.log(e.target)
     }
 
     return (
@@ -21,7 +21,7 @@ export default function Utilisateur({utilisateur}){
             key={utilisateur.id}
             disablePadding
         >
-            <ListItemButton onClick={changerUtilisateur}>
+            <ListItemButton id={utilisateur.id} onClick={changerUtilisateur}>
                 <ListItemAvatar>
                     <Avatar
                         alt={`Avatar`}

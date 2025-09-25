@@ -19,7 +19,6 @@ export default class NouvelleModel {
         this._resume = resume;
         this._createurs = createurs;
         this._categorie = categorie;
-        this._noReference = noReference;
     }
 
 
@@ -103,7 +102,8 @@ export default class NouvelleModel {
             image: this._image,
             texte: this._texte,
             resume: this._resume,
-            createurs: this._createurs
+            createurs: this._createurs,
+            categorie: this._categorie
         };
     }
 }

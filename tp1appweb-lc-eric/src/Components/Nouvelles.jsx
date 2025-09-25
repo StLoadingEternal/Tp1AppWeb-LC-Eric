@@ -12,12 +12,11 @@ import {parse, v4 as uuidv4} from 'uuid';
 import Typography from "@mui/material/Typography";
 import {CritereContext} from "./CritereContext.jsx";
 
-export default function Nouvelles({currentUser}) {
+export default function Nouvelles({nouvelles, setNouvelles, criteres}) {
     const [editing, setEditing] = useState({ isEditing: false, id: -1 });
     const [deleting, setDeleting] = useState({ isDeleting: false, id: -1 });
-    let criteres = useContext(CritereContext).criteres;
 
-    const newsContext = useContext(NewsContext);
+
     //A voir l'utilisation de la référence
     //utilisation de UUID pour les ID
 
@@ -31,33 +30,29 @@ export default function Nouvelles({currentUser}) {
         const texteNouvelle = (nouvelle.texte + nouvelle.resume).toLowerCase();
         const anneeNouvelle = new Date(nouvelle.date).getFullYear();
 
-        if (cr.noReference !== parseInt(currentUser)) return false; // (les criteres ne s'appliquent qu'au journaliste qui le cree)
 
         return (
             // si l'annee selectionne correspond
-            cr.anneeNouvelle === anneeNouvelle &&
+            (parseInt(cr.anneeNouvelle) === anneeNouvelle) &&
             // si l'un des mots cles est contenu dans le resume ou le texte
             cr.motsCles.some(mot => texteNouvelle.includes(mot.toLowerCase())) &&
             // si la categorie correspond
-            cr.categorie === nouvelle.categorie
+            cr.categorie.toLowerCase() === nouvelle.categorie.toString().toLowerCase()
         );
     }
 
     function filtrerNouvelles() {
-        return newsContext.news
+        console.log(criteres)
+        return nouvelles
             .filter(nouvelle => {
 
-                // Le journaliste doit être le créateur (un journaliste ne peut voir que ses nouvelles)
-                if (!nouvelle._createurs.includes(parseInt(currentUser))) {
-                    return false;
-                }
 
                 // Si aucun critère, on affiche tout
                 if (criteres.length === 0)
                     return true;
 
-                // Vérifier si au moins un critère correspond
-                return criteres.some(cr => { // on parcours les criteres
+                // Vérifier si au moins tous les criteres correspondent
+                return criteres.every(cr => { // on parcours les criteres
                     return verifieCriteres(cr, nouvelle);
                 });
             })
@@ -83,38 +78,30 @@ export default function Nouvelles({currentUser}) {
     }
 
     function supprimerNouvelle(id) {
-        newsContext.setNews(old => old.filter(nouvelle => nouvelle.id !== id));
+        setNouvelles(old => old.filter(nouvelle => nouvelle.id !== id));
         setDeleting({ isDeleting: false, id: -1 });
     }
 
     function changerNouvelle(nouvelle) {
-        newsContext.setNews(old => [nouvelle, ...old.filter(n => n.id !== nouvelle.id)]);
+        setNouvelles(old => [nouvelle, ...old.filter(n => n.id !== nouvelle.id)]);
         setEditing({ isEditing: false, id: -1 });
     }
 
     function ajouterNouvelle(nouvelle) {
         nouvelle.id = uuidv4(); // Id unique
-        newsContext.setNews(old => [nouvelle, ...old]);
+        setNouvelles(old => [nouvelle, ...old]);
     }
 
-    const nouvelleEditee = newsContext.news.find(n => n.id === editing.id);
-    const nouvelleASupprimer = newsContext.news.find(n => n.id === deleting.id);
-    const nouvelles = filtrerNouvelles();
+    const nouvelleEditee = nouvelles.find(n => n.id === editing.id);
+    const nouvelleASupprimer = nouvelles.find(n => n.id === deleting.id);
+    const nouvellesFiltres = filtrerNouvelles();
 
     return (
         <>
             <Typography
                 variant="h3"
-                align="center"
                 gutterBottom
-                sx={{
-                    fontWeight: 'bold',
-                    textTransform: 'uppercase',
-                    color: 'primary.main',
-                    mt: 4,
-                    mb: 2,
-                    letterSpacing: 2,
-                }}
+                className={"grandTitre"}
             >
                 Les nouvelles du monde
             </Typography>
@@ -124,7 +111,7 @@ export default function Nouvelles({currentUser}) {
             </Button>
 
             <Grid container spacing={2}>
-                {nouvelles}
+                {nouvellesFiltres}
             </Grid>
 
             {/* Dialog modifier */}

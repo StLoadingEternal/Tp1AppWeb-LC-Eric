@@ -6,7 +6,7 @@ import MenuUtilisateur from "./Components/MenuUtilisateur.jsx";
 import {Card, CardContent, Container, Grid} from "@mui/material";
 import MenuUtilisateurBody from "./Components/MUIComponents/MenuUtilisateursBody.jsx";
 import Box from "@mui/material/Box";
-import NouvelleAppBar from "./Components/MUIComponents/NouvelleAppBAr.jsx";
+
 import {nouvelles} from "./scripts/nouvelles.js";
 import NouvelleModel from "./models/NouvelleModel.js";
 import {UtilisateurContext} from "./Components/utilisateurContext.jsx";
@@ -15,6 +15,7 @@ import FormCritere from "./Components/FormComponents/FormCritere.jsx";
 import CritereModel from "./models/CritereModel.js";
 import Typography from "@mui/material/Typography";
 import BarreCriteres from "./Components/BarreCriteres.jsx";
+import BarDrawer from "./Components/DrawerComponents/BarDrawer.jsx";
 
 
 /**
@@ -109,26 +110,28 @@ function App() {
             <UtilisateurContext.Provider value={{userActuId, setUserActu}}>
                 <CritereContext.Provider value={{criteres, setCriteres}}>
                     <Box className={"contenuPage"}>
-                        <NouvelleAppBar contenuDrawer={barreCritere}/>
+                        <BarDrawer >
+                            {barreCritere}
+                            <Grid
+                                className={"corps"}
+                                container spacing={1}>
+                                <Grid sx={{ height: "100vh", overflowY: 'scroll'}} size={10}>
+                                    <NewsContext.Provider value={{news, setNews}}>
+                                        <Nouvelles nouvelles = {nouvelleEnFonctionUser} setNouvelles={setNews} criteres={criteresEnFonctionUser}/>
+                                    </NewsContext.Provider>
+                                </Grid>
+                                <Grid  size={2}>
 
+                                    <MenuUtilisateurBody>
+                                        <MenuUtilisateur className={"menuUtilisateur"}/>
 
-
-                        <Grid
-                            className={"corps"}
-                            container spacing={1}>
-                            <Grid sx={{ height: "100vh", overflowY: 'scroll'}} size={10}>
-                                <NewsContext.Provider value={{news, setNews}}>
-                                    <Nouvelles nouvelles = {nouvelleEnFonctionUser} setNouvelles={setNews} criteres={criteresEnFonctionUser}/>
-                                </NewsContext.Provider>
+                                    </MenuUtilisateurBody>
+                                </Grid>
                             </Grid>
-                            <Grid  size={2}>
 
-                                <MenuUtilisateurBody>
-                                    <MenuUtilisateur className={"menuUtilisateur"}/>
+                        </BarDrawer>
 
-                                </MenuUtilisateurBody>
-                            </Grid>
-                        </Grid>
+
 
                     </Box>
                 </CritereContext.Provider>

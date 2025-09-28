@@ -103,7 +103,7 @@ export default function Nouvelles({nouvelles, setNouvelles, criteres}) {
                 gutterBottom
                 className={"grandTitre"}
             >
-                Les nouvelles du monde
+                Actu Sport
             </Typography>
             <Button onClick={() => {setEditing({ isEditing: true, id: -1 });}}>
                 <AddCircleOutlineIcon />

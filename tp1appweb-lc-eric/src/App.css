@@ -5,6 +5,7 @@
     --lg-hover-glow: rgba(255, 255, 255, 0.4);
     --lg-red: #fb4268;
     --lg-grey: #5b5b5b;
+
 }
 
 
@@ -33,6 +34,7 @@
     width: max-content;
 }
 .grandTitre{
+    padding-left: 2%;
     font-Weight: bold;
     text-transform: uppercase;
     color: black;
@@ -40,8 +42,12 @@
     margin-bottom: 2px;
     letter-spacing: 2px;
     text-align: center;
+    background-color: rgba(168, 191, 160, 0.33);
+    border-radius: 100px;
+
 }
 .barreCritere{
+
     display: flex;
     flex-Direction: row;
     gap: 2px;

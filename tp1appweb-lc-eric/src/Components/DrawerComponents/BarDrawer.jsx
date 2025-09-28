@@ -77,7 +77,7 @@ const DrawerHeader = styled('div')(({ theme }) => ({
     justifyContent: 'flex-end',
 }));
 
-export default function BarDrawer({contenu}) {
+export default function BarDrawer({children}) {
     const theme = useTheme();
     const [open, setOpen] = React.useState(false);
 
@@ -92,7 +92,7 @@ export default function BarDrawer({contenu}) {
     return (
         <Box sx={{ display: 'flex' }}>
             <CssBaseline />
-            <AppBar position="fixed" open={open}>
+            <AppBar className={"appBar"} position="fixed" open={open}>
                 <Toolbar>
                     <IconButton
                         color="inherit"
@@ -109,7 +109,7 @@ export default function BarDrawer({contenu}) {
                         <MenuIcon />
                     </IconButton>
                     <Typography variant="h6" noWrap component="div">
-                        Persistent drawer
+                        Lass & Ted nouvelles
                     </Typography>
                 </Toolbar>
             </AppBar>
@@ -136,7 +136,7 @@ export default function BarDrawer({contenu}) {
             </Drawer>
             <Main open={open}>
                 <DrawerHeader />
-                {contenu}
+                {children}
             </Main>
         </Box>
     );

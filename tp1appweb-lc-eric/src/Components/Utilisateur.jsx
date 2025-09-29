@@ -10,27 +10,35 @@ import {UtilisateurContext} from "./utilisateurContext.jsx";
 export default function Utilisateur({utilisateur}){
     let utilisateurContext = useContext(UtilisateurContext);
 
-
-    function changerUtilisateur(e) {
+    function changerUtilisateur() {
+        console.log("Test");
         utilisateurContext.setUserActu(old => utilisateur.id);
-        console.log(e.target)
+        console.log(utilisateur.id)
     }
 
+    const estSelectionne = utilisateurContext.userActuId === utilisateur.id;
+
+    const styleItemSelectionne = {
+        '&.Mui-selected': {
+            backgroundColor: 'primary.main',
+            color: 'white',
+            '&:hover': {
+                backgroundColor: 'primary.dark',
+            },
+        },
+    };
+
     return (
-        <ListItem
-            key={utilisateur.id}
-            disablePadding
-        >
-            <ListItemButton id={utilisateur.id} onClick={changerUtilisateur}>
+        <ListItem sx={utilisateurContext.userActuId === utilisateur.id ? styleItemSelectionne : ""}>
+            <ListItemButton selected={estSelectionne} onClick={changerUtilisateur} sx={styleItemSelectionne}>
                 <ListItemAvatar>
                     <Avatar
                         alt={`Avatar`}
                         src={''}
                     />
                 </ListItemAvatar>
-                <ListItemText  id={utilisateur.id} primary={utilisateur.nom} />
+                <ListItemText id={utilisateur.id} primary={utilisateur.nom}/>
             </ListItemButton>
         </ListItem>
     )
-
 }

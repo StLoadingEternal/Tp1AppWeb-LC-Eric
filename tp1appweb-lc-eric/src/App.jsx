@@ -3,8 +3,7 @@ import {useEffect, useState} from "react";
 import Nouvelles from "./Components/Nouvelles.jsx";
 import {NewsContext} from "./Components/NewsContext.jsx";
 import MenuUtilisateur from "./Components/MenuUtilisateur.jsx";
-import {Card, CardContent, Container, Grid} from "@mui/material";
-import MenuUtilisateurBody from "./Components/MUIComponents/MenuUtilisateursBody.jsx";
+import {Card, CardContent, Container, Grid, ThemeProvider} from "@mui/material";
 import Box from "@mui/material/Box";
 
 import {nouvelles} from "./scripts/nouvelles.js";
@@ -16,6 +15,9 @@ import CritereModel from "./models/CritereModel.js";
 import Typography from "@mui/material/Typography";
 import BarreCriteres from "./Components/BarreCriteres.jsx";
 import BarDrawer from "./Components/DrawerComponents/BarDrawer.jsx";
+import Statistique from "./models/Statistique.js";
+import Statistiques from "./Components/Statistiques.jsx";
+import {themeNouvelles} from "./theme/themeNouvelles.js";
 
 
 /**
@@ -36,7 +38,7 @@ function genererNouvelles(){
             nouvelle.image,
             nouvelle.texte,
             nouvelle.resume,
-            nouvelle.createur,
+            nouvelle.createurs,
             nouvelle.categorie
         ));
         window.localStorage.setItem("nouvelles", JSON.stringify(nouvellesGenereres));
@@ -88,7 +90,7 @@ function App() {
     const [criteres, setCriteres] = useState(lireCriteresSauvegardes);
 
     let criteresEnFonctionUser =criteres.filter(cr => cr.noReference === userActuId); // les criteres sont tries en fonction de l'user connecte
-    let nouvelleEnFonctionUser = nouvelles.filter(n => n.createur.includes(userActuId));  // les nouvelles sont tries en fonction de l'user connecte
+    let nouvelleEnFonctionUser = news.filter(n => n.createurs.includes(userActuId));  // les nouvelles sont tries en fonction de l'user connecte
 
     //Recuperer l'utilisateur connecté
 
@@ -107,35 +109,35 @@ function App() {
 
     return (
         <>
-            <UtilisateurContext.Provider value={{userActuId, setUserActu}}>
-                <CritereContext.Provider value={{criteres, setCriteres}}>
-                    <Box className={"contenuPage"}>
-                        <BarDrawer >
-                            {barreCritere}
+            <ThemeProvider theme={themeNouvelles}>
+                <UtilisateurContext.Provider value={{userActuId, setUserActu}}>
+                    <CritereContext.Provider value={{criteres, setCriteres}}>
+                        <Box  sx={{
+                            backgroundImage: 'linear-gradient(135deg, #89f7fe 0%, #66a6ff 100%)',
+                            height: "100%",
+                            width: '100%',
+                            position: "relative",
+                        }}>
+                            <BarDrawer >
+                                {barreCritere}
+                            </BarDrawer>
                             <Grid
                                 className={"corps"}
                                 container spacing={1}>
                                 <Grid sx={{ height: "100vh", overflowY: 'scroll'}} size={10}>
                                     <NewsContext.Provider value={{news, setNews}}>
-                                        <Nouvelles nouvelles = {nouvelleEnFonctionUser} setNouvelles={setNews} criteres={criteresEnFonctionUser}/>
+                                        <Nouvelles nouvelles={nouvelleEnFonctionUser} currentUser={userActuId} criteres={criteresEnFonctionUser}/>
                                     </NewsContext.Provider>
                                 </Grid>
-                                <Grid  size={2}>
-
-                                    <MenuUtilisateurBody>
-                                        <MenuUtilisateur className={"menuUtilisateur"}/>
-
-                                    </MenuUtilisateurBody>
+                                <Grid size={2}>
+                                    <MenuUtilisateur/>
+                                    <Statistiques stat={new Statistique(news)}></Statistiques>
                                 </Grid>
                             </Grid>
-
-                        </BarDrawer>
-
-
-
-                    </Box>
-                </CritereContext.Provider>
-            </UtilisateurContext.Provider>
+                        </Box>
+                    </CritereContext.Provider>
+                </UtilisateurContext.Provider>
+            </ThemeProvider>
         </>
     )
 }

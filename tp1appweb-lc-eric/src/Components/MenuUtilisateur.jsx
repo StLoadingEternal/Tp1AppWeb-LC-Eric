@@ -1,20 +1,20 @@
-import UtilisateurModel from "../models/UtilisateurModel.js";
-import Role from "../models/Role.js";
-
 import Utilisateur from "./Utilisateur.jsx";
 import {utilisateursJson} from "../scripts/utilisateurs.js";
 import AdminModel from "../models/AdminModel.js";
 import JournalisteModel from "../models/JournalisteModel.js";
 import Typography from "@mui/material/Typography";
-import {UtilisateurContext} from "./utilisateurContext.jsx";
 import {useRef} from "react";
+import List from "@mui/material/List";
+import * as React from "react";
+import Box from "@mui/material/Box";
 
 
 
 export default function MenuUtilisateur(){
     const userId = useRef();
-    let usersList = genererUtilisateurs(utilisateursJson);
+    let users = genererUtilisateurs(utilisateursJson);
 
+    const usersList = users.map(user => <Utilisateur key={user.id} utilisateur={user}/>);
 
     /**
      * Cette methode a pour but de le lire la source de donnee et de les encapsuler dans la classe
@@ -53,11 +53,14 @@ export default function MenuUtilisateur(){
 
     return (
 
-        <div className={"menuUtilisateur"} >
-            <Typography variant="h5" sx={{textAlign: "center", ml:2}} gutterBottom>
+        <Box className={"makeitglass menuUtilisateur"}>
+            <Typography variant="h5" sx={{ml: 2}} gutterBottom>
                 Menu Utilisateur
             </Typography>
-            {usersList.map(user => <Utilisateur  utilisateur={user}/>)}
-        </div>
+            <List dense sx={{justifyContent: "center", textAlign: "center"}}>
+                {usersList}
+            </List>
+
+        </Box>
     );
 }

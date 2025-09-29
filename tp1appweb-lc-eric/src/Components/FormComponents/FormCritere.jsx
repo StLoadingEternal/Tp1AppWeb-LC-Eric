@@ -27,6 +27,8 @@ export default function FormCritere() {
         let critere = new CritereModel(id, noReference, titre, dateCritere, categorie, anneeNouvelle, motsCles);
 
         critereContext.setCriteres(old => [...old, critere]);
+        e.target.reset();
+
     }
 
     return (

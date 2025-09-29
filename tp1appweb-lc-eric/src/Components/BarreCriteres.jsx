@@ -12,7 +12,7 @@ export default function BarreCriteres({criteres}){
 
     return (
         <Box>
-            <Typography variant="h4" sx={{textAlign: "left"}} className="grandTitre" gutterBottom>
+            <Typography variant="h4" className="grandTitre" gutterBottom>
                 Les Critères
             </Typography>
 

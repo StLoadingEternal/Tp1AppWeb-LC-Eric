@@ -1,18 +1,6 @@
-:root {
-    --lg-bg-color: rgba(255, 255, 255, 0.25);
-    --lg-highlight: rgba(255, 255, 255, 0.75);
-    --lg-text: #ffffff;
-    --lg-hover-glow: rgba(255, 255, 255, 0.4);
-    --lg-red: #fb4268;
-    --lg-grey: #5b5b5b;
-
-}
-
-
 .makeitglass{
 
     font-weight: 600;
-    color: var(--lg-text);
     cursor: pointer;
     border-radius: 2rem;
     overflow: hidden;
@@ -22,43 +10,57 @@
 
 
 .contenuPage{
-
     height: 100%;
     width: 100%;
     position: relative;
-
 }
 
 
-.menuUtilisateur{
-    width: max-content;
-}
-.grandTitre{
-    padding-left: 2%;
-    font-Weight: bold;
-    text-transform: uppercase;
+.menuUtilisateur {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 8px;
     color: black;
-    margin-top: 2px;
-    margin-bottom: 2px;
-    letter-spacing: 2px;
-    text-align: center;
-    background-color: rgba(168, 191, 160, 0.33);
-    border-radius: 100px;
-
+    background: linear-gradient(to bottom right, #66ccff, #3399ff);
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
 }
-.barreCritere{
 
+
+.grandTitre {
+    font-weight: bold;
+    text-transform: uppercase;
+    color: #fff;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    letter-spacing: 3px;
+    text-align: center;
+    background: linear-gradient(to right, rgba(168, 191, 160, 0.7), rgba(30, 65, 90, 0.5)); /* Dégradé */
+    border-radius: 25px;
+    padding: 10px 20px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Ombre douce */
+    font-size: 24px; /* Taille de police ajustée */
+    transition: transform 0.3s ease, background 0.3s ease; /* Transition fluide pour l'interactivité */
+}
+
+.grandTitre:hover {
+    transform: scale(1.05); /* Légère mise à l'échelle lors du survol */
+    background: linear-gradient(to right, rgba(168, 191, 160, 1), rgba(30, 65, 90, 1)); /* Dégradé intensifié au survol */
+}
+
+.barreCritere{
     display: flex;
     flex-Direction: row;
     gap: 2px;
     overflow-x: auto;
     padding: 2px 10px;
+    justify-content: center;
     width: max-content;
 
 }
 
 .appBar{
-    background-color: black !important;
+    background-color: black ;
 }
 
 

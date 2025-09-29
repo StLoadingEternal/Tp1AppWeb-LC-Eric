@@ -3,22 +3,11 @@ import {Card, CardMedia, CardContent, CardActions, IconButton, Typography, Box} 
 import ClearIcon from '@mui/icons-material/Clear';
 import ModeEditIcon from '@mui/icons-material/ModeEdit';
 import InfoOutlineSharpIcon from '@mui/icons-material/InfoOutlineSharp';
-import {NewsContext} from "../NewsContext.jsx";
 
 
 
 
-export default function NouvelleBody({editer, supprimer, newsProps }) {
-    //Utilisation du newsContext
-    //const newsContext = useContext(NewsContext);
-
-    // //Effacer une nouvelle(Alert?)
-    // function handleClear() {
-    //     console.log(nouvelleModel);
-    //     newsContext.setNews((ancien) =>
-    //         ancien.filter((nouvelle) => nouvelle.noReference !== nouvelleModel.noReference)
-    //     );
-    // }
+export default function NouvelleBody({editer, supprimer, lire, newsProps }) {
 
     return (
         <Card
@@ -76,9 +65,20 @@ export default function NouvelleBody({editer, supprimer, newsProps }) {
                 <IconButton aria-label="Supprimer" onClick={() => supprimer(newsProps.id)}>
                     <ClearIcon />
                 </IconButton>
-                <IconButton aria-label="Détails">
+                <IconButton aria-label="Détails" onClick={() => lire(newsProps.id)}>
                     <InfoOutlineSharpIcon />
                 </IconButton>
+                <Typography
+                    variant="body1"
+                    sx={{
+                        color: 'text.primary',
+                        fontWeight: 'bold',
+                        fontStyle: 'italic',
+                        marginLeft: 'auto'
+                    }}
+                >
+                    {newsProps.categorie}
+                </Typography>
             </CardActions>
         </Card>
     );

@@ -1,22 +1,25 @@
 import { Grid, TextField, Typography, Button } from "@mui/material";
+import NouvelleModel from "../../models/NouvelleModel.js";
 
-export default function FormNews({ changerNouvelle, ajouterNouvelle, nouvelle, onClose }) {
+export default function FormNews({changerNouvelle, ajouterNouvelle, nouvelle, onClose }) {
 
 
     function handleSubmit(e) {
         e.preventDefault();
 
         const formData = new FormData(e.target);
-        const nouvelleSoumise = {
-            ...nouvelle,
-            titre: formData.get("titre"),
-            texte: formData.get("texte"),
-            image: formData.get("image"),
-            resume: formData.get("resume"),
-            date: formData.get("date"),
-        };
+        const nouvelleSoumise = new NouvelleModel(
+            nouvelle.id,
+            formData.get("date"),
+            formData.get("titre"),
+            formData.get("image"),
+            formData.get("texte"),
+            formData.get("resume"),
+            nouvelle?.createurs || "", // on garde les createurs si déjà définis
+            nouvelle?.categorie || "" // categorie
+        );
 
-        if (nouvelle === undefined) {
+        if (!nouvelle) {
             // Ajout
             ajouterNouvelle(nouvelleSoumise);
         } else {

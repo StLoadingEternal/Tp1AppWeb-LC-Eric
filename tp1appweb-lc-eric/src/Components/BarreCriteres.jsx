@@ -17,6 +17,15 @@ export default function BarreCriteres({criteres, critereSelectedId, setCritereSe
         setCritereSelection((critereSelectedId === id ? null : id));
     }
 
+    /**
+     * Cette fonction recoit, l'id d'un critere qu'il doit supprimer
+     * @param id
+     */
+    function supprimerCritere(id){
+        critereContext.setCriteres(old => old.filter(critereSelected => id !== critereSelected.id))
+    }
+
+
     return (
         <Box>
             <Typography variant="h4" className="grandTitre" gutterBottom>
@@ -57,8 +66,9 @@ export default function BarreCriteres({criteres, critereSelectedId, setCritereSe
 
                                     <Button
                                         disabled={!criteres.includes(cr)} // desactive le bouton si le critere n'appartient pas a l'utilisateur
-                                        onClick={() => critereContext.setCriteres(old => old.filter(critereSelected => cr.id !== critereSelected.id))}
-                                            size="small" color="secondary">Supprimer</Button>
+
+                                        onClick={() => supprimerCritere(cr.id)}
+                                        size="small" color="secondary">Supprimer</Button>
                                 </CardActions>
                             </Card>
                         </>

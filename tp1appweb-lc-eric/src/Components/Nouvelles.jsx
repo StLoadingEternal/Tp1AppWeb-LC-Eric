@@ -2,8 +2,8 @@ import Nouvelle from "./Nouvelle.jsx";
 import {useContext, useState} from "react";
 import {Grid} from "@mui/material";
 import {NewsContext} from "./NewsContext.jsx";
-import NewsDialog from "./DrawerComponents/NewsDialog.jsx";
-import ConfirmationDialog from "./DrawerComponents/ConfirmationDialog.jsx";
+import NewsDialog from "./DialogComponents/NewsDialog.jsx";
+import ConfirmationDialog from "./DialogComponents/ConfirmationDialog.jsx";
 import FormNews from "./FormComponents/FormNews.jsx";
 import Button from "@mui/material/Button";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
@@ -11,10 +11,19 @@ import ModeEditIcon from "@mui/icons-material/ModeEdit";
 import {parse, v4 as uuidv4} from 'uuid';
 import Typography from "@mui/material/Typography";
 import {CritereContext} from "./CritereContext.jsx";
+import TexteDialog from "./DialogComponents/TexteDialog.jsx";
+import Box from "@mui/material/Box";
 
-export default function Nouvelles({nouvelles, setNouvelles, criteres}) {
-    const [editing, setEditing] = useState({ isEditing: false, id: -1 });
-    const [deleting, setDeleting] = useState({ isDeleting: false, id: -1 });
+export default function Nouvelles({nouvelles, currentUser, criteres}) {
+    //Etat qui indique si un dialog est ouvert
+    const [openDialog, setOpenDialog] = useState({isEditing: false, id: -1, action: ""});
+
+
+    //Contexte des nouvelles
+    const newsContext = useContext(NewsContext);
+
+    //Utilisateur actuel
+    console.log(currentUser)
 
 
     //A voir l'utilisation de la référence
@@ -62,6 +71,7 @@ export default function Nouvelles({nouvelles, setNouvelles, criteres}) {
                     key={nouvelle.id}
                     editer={editer}
                     supprimer={supprimer}
+                    lire={lire}
                 />
             ));
     }
@@ -69,70 +79,109 @@ export default function Nouvelles({nouvelles, setNouvelles, criteres}) {
 
 
 
+    //Dialog pour modifier
     function editer(id) {
-        setEditing({ isEditing: true, id: id });
+        setOpenDialog({isEditing: true, id: id, action: "editer"});
     }
 
+    //Dialog pour supprimer
     function supprimer(id) {
-        setDeleting({ isDeleting: true, id: id });
+        setOpenDialog({isEditing: true, id: id, action: "supprimer"});
     }
 
+    //Dialog pour lire
+    function lire(id) {
+        setOpenDialog({isEditing: true, id: id, action: "lire"});
+    }
+
+    //Actions qui change l'état
+
+    //Suppression
     function supprimerNouvelle(id) {
-        setNouvelles(old => old.filter(nouvelle => nouvelle.id !== id));
-        setDeleting({ isDeleting: false, id: -1 });
+        newsContext.setNews(old => old.filter(nouvelle => nouvelle.id !== id));
+        setOpenDialog({isEditing: false, id: -1, action: ""})
     }
 
     function changerNouvelle(nouvelle) {
-        setNouvelles(old => [nouvelle, ...old.filter(n => n.id !== nouvelle.id)]);
-        setEditing({ isEditing: false, id: -1 });
+        newsContext.setNews(old => [nouvelle, ...old.filter(n => n.id !== nouvelle.id)]);
+
+        // newsContext.setNews(old => {
+        //     let nouvelleChanger = old.find(n => parseInt(nouvelle.id) === parseInt(n.id) ).clone();
+        //     nouvelleChanger.titre = nouvelle.titre;
+        //     nouvelleChanger.resume = nouvelle.resume;
+        //     nouvelleChanger.date = nouvelle.date;
+        //     nouvelleChanger.texte = nouvelle.texte;
+        //     nouvelleChanger.image = nouvelle.image;
+        //
+        //     return [nouvelleChanger, ...old.filter(n => n.id !== nouvelle.id)]
+        // })
     }
 
+    //Ajouter
     function ajouterNouvelle(nouvelle) {
-        nouvelle.id = uuidv4(); // Id unique
-        setNouvelles(old => [nouvelle, ...old]);
+        nouvelle.id = uuidv4();//Id unique
+        nouvelle.createurs = [currentUser]// Id des créateurs
+        newsContext.setNews(old => [nouvelle, ...old]);
     }
 
-    const nouvelleEditee = nouvelles.find(n => n.id === editing.id);
-    const nouvelleASupprimer = nouvelles.find(n => n.id === deleting.id);
+    //La nouvelle {id} sur laquelle on effectue une action
+    const nouvelleSelectionne = newsContext.news.find(n => n.id === openDialog.id);
     const nouvellesFiltres = filtrerNouvelles();
 
     return (
         <>
             <Typography
                 variant="h3"
+                align="center"
                 gutterBottom
-                className={"grandTitre"}
+                sx={{
+                    fontWeight: 'bold',
+                    textTransform: 'uppercase',
+                    color: 'primary.main',
+                    mt: 4,
+                    mb: 2,
+                    letterSpacing: 2,
+                }}
             >
-                Actu Sport
+                Actualités Sportives Mondiales
             </Typography>
-            <Button onClick={() => {setEditing({ isEditing: true, id: -1 });}}>
-                <AddCircleOutlineIcon />
-                Ajouter une Nouvelle
-            </Button>
-
+            {/*Ajout d'une nouvelle au clic. id = -1 */}
+            <Box sx={{textAlign: 'center', mb: 3}}>
+                <Button onClick={() => {
+                    setOpenDialog({isEditing: true, id: -1, action: "editer"});
+                }}>
+                    <AddCircleOutlineIcon/>
+                    Ajouter une Nouvelle
+                </Button>
+            </Box>
             <Grid container spacing={2}>
                 {nouvellesFiltres}
             </Grid>
 
-            {/* Dialog modifier */}
+            {/* Modifier une nouvelle */}
             <NewsDialog
-                open={editing.isEditing}
+                open={openDialog.isEditing && openDialog.action === "editer"}
             >
                 <FormNews
                     changerNouvelle={changerNouvelle}
                     ajouterNouvelle={ajouterNouvelle}
-                    nouvelle={nouvelleEditee}
-                    onClose={() => setEditing({ isEditing: false, id: -1 })}
+                    nouvelle={nouvelleSelectionne}
+                    onClose={() => setOpenDialog({isEditing: false, id: -1, action: ""})}
                 >
                 </FormNews>
             </NewsDialog>
-
-            {/* Dialog de confirmation de suppression */}
+            {/* Supprimer une nouvelle */}
             <ConfirmationDialog
-                open={deleting.isDeleting}
-                onClose={() => setDeleting({ isDeleting: false, id: -1 })}
-                nouvelle={nouvelleASupprimer}
+                open={openDialog.isEditing && openDialog.action === "supprimer"}
+                nouvelle={nouvelleSelectionne}
                 supprimerNouvelle={supprimerNouvelle}
+                onClose={() => setOpenDialog({isEditing: false, id: -1, action: ""})}
+            />
+            {/* Lire une nouvelle */}
+            <TexteDialog
+                open={openDialog.isEditing && openDialog.action === "lire"}
+                nouvelle={nouvelleSelectionne}
+                onClose={() => setOpenDialog({isEditing: false, id: -1, action: ""})}
             />
         </>
     );

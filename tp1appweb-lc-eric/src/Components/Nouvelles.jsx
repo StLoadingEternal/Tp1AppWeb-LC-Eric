@@ -13,6 +13,7 @@ import Typography from "@mui/material/Typography";
 import {CritereContext} from "./CritereContext.jsx";
 import TexteDialog from "./DialogComponents/TexteDialog.jsx";
 import Box from "@mui/material/Box";
+import appliquerFiltres from "../scripts/filtrerNouvelles.js";
 
 export default function Nouvelles({nouvelles, currentUser, criteres}) {
     //Etat qui indique si un dialog est ouvert
@@ -25,46 +26,12 @@ export default function Nouvelles({nouvelles, currentUser, criteres}) {
     //Utilisateur actuel
     console.log(currentUser)
 
-
-    //A voir l'utilisation de la référence
-    //utilisation de UUID pour les ID
-
     /**
      * Cette methode permet de checker si la nouvelle est verifi/e le critere
-     * @param cr
-     * @param nouvelle
      * @returns {false|*|boolean}
      */
-    function verifieCriteres(cr, nouvelle) {
-        const texteNouvelle = (nouvelle.texte + nouvelle.resume).toLowerCase();
-        const anneeNouvelle = new Date(nouvelle.date).getFullYear();
-
-
-        return (
-            // si l'annee selectionne correspond
-            (parseInt(cr.anneeNouvelle) === anneeNouvelle) &&
-            // si l'un des mots cles est contenu dans le resume ou le texte
-            cr.motsCles.some(mot => texteNouvelle.includes(mot.toLowerCase())) &&
-            // si la categorie correspond
-            cr.categorie.toLowerCase() === nouvelle.categorie.toString().toLowerCase()
-        );
-    }
-
     function filtrerNouvelles() {
-        console.log(criteres)
-        return nouvelles
-            .filter(nouvelle => {
-
-
-                // Si aucun critère, on affiche tout
-                if (criteres.length === 0)
-                    return true;
-
-                // Vérifier si au moins tous les criteres correspondent
-                return criteres.every(cr => { // on parcours les criteres
-                    return verifieCriteres(cr, nouvelle);
-                });
-            })
+        return appliquerFiltres(nouvelles, criteres)
             .map(nouvelle => (
                 <Nouvelle
                     newsProps={nouvelle}

@@ -63,4 +63,8 @@
     background-color: black ;
 }
 
+.selected{
+    background-color: rgba(198, 231, 248, 0.53) !important;
+}
+
 

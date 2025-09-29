@@ -89,6 +89,9 @@ function App() {
     const [userActuId, setUserActu] = useState(1);
     const [criteres, setCriteres] = useState(lireCriteresSauvegardes);
 
+    // cet etat permet la selection d'un seul critere
+    const [critereSelectedId, setCritereSelection] = useState();
+
     let criteresEnFonctionUser =criteres.filter(cr => cr.noReference === userActuId); // les criteres sont tries en fonction de l'user connecte
     let nouvelleEnFonctionUser = news.filter(n => n.createurs.includes(userActuId));  // les nouvelles sont tries en fonction de l'user connecte
 
@@ -105,7 +108,9 @@ function App() {
     }, [criteres]);
 
 
-    const barreCritere = <BarreCriteres criteres={criteresEnFonctionUser} />
+    const barreCritere = <BarreCriteres criteres={criteresEnFonctionUser}
+                                        critereSelectedId={critereSelectedId} // on envoie un etat pour gerer la selection de critere
+                                        setCritereSelection={setCritereSelection}/>
 
     return (
         <>
@@ -126,7 +131,10 @@ function App() {
                                 container spacing={1}>
                                 <Grid sx={{ height: "100vh", overflowY: 'scroll'}} size={10}>
                                     <NewsContext.Provider value={{news, setNews}}>
-                                        <Nouvelles nouvelles={nouvelleEnFonctionUser} currentUser={userActuId} criteres={criteresEnFonctionUser}/>
+                                        <Nouvelles
+                                            nouvelles={nouvelleEnFonctionUser}
+                                            currentUser={userActuId}
+                                            criteres={criteres.find(cr => cr.id === critereSelectedId)}/> {/* ON envoie le critere selectionne*/}
                                     </NewsContext.Provider>
                                 </Grid>
                                 <Grid size={2}>

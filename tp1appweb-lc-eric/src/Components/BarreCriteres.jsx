@@ -6,8 +6,16 @@ import {useContext} from "react";
 import {CritereContext} from "./CritereContext.jsx";
 
 
-export default function BarreCriteres({criteres}){
+export default function BarreCriteres({criteres, critereSelectedId, setCritereSelection}){
     const critereContext = useContext(CritereContext);
+
+    /**
+     * Cette fonction marche comme un toggle pour selectionner et deselectionner l'id
+     * @param id
+     */
+    function selectionner(id){
+        setCritereSelection((critereSelectedId === id ? null : id));
+    }
 
     return (
         <Box>
@@ -22,7 +30,11 @@ export default function BarreCriteres({criteres}){
                 {critereContext.criteres.length > 0 ? (
                     critereContext.criteres.map(cr => (
                         <>
-                            <Card key={cr.id} sx={{ minWidth: 250, flexShrink: 0, maxWidth: 345 }}>
+                            <Card
+                                key={cr.id}
+                                onClick={() => selectionner(cr.id)}
+                                className={critereSelectedId === cr.id ? "selected" : ""} // appliquer un style si le critere appartient a l'user
+                                sx={{ minWidth: 250, flexShrink: 0, maxWidth: 345 }}>
                                 <CardActionArea>
                                     {/* Image ou icône pour le critère (optionnel) */}
 
@@ -43,7 +55,9 @@ export default function BarreCriteres({criteres}){
                                 </CardActionArea>
                                 <CardActions>
 
-                                    <Button onClick={() => critereContext.setCriteres(old => old.filter(critereSelected => cr.id !== critereSelected.id))}
+                                    <Button
+                                        disabled={!criteres.includes(cr)} // desactive le bouton si le critere n'appartient pas a l'utilisateur
+                                        onClick={() => critereContext.setCriteres(old => old.filter(critereSelected => cr.id !== critereSelected.id))}
                                             size="small" color="secondary">Supprimer</Button>
                                 </CardActions>
                             </Card>

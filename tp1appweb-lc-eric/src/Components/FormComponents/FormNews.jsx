@@ -9,7 +9,7 @@ export default function FormNews({changerNouvelle, ajouterNouvelle, nouvelle, on
 
         const formData = new FormData(e.target);
         const nouvelleSoumise = new NouvelleModel(
-            nouvelle.id,
+            nouvelle?.id,
             formData.get("date"),
             formData.get("titre"),
             formData.get("image"),
@@ -19,7 +19,7 @@ export default function FormNews({changerNouvelle, ajouterNouvelle, nouvelle, on
             nouvelle?.categorie || "" // categorie
         );
 
-        if (!nouvelle) {
+        if (nouvelle === undefined) {
             // Ajout
             ajouterNouvelle(nouvelleSoumise);
         } else {

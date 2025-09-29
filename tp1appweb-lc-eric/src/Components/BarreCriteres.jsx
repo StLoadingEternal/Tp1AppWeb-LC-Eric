@@ -9,7 +9,6 @@ import {CritereContext} from "./CritereContext.jsx";
 export default function BarreCriteres({criteres}){
     const critereContext = useContext(CritereContext);
 
-
     return (
         <Box>
             <Typography variant="h4" className="grandTitre" gutterBottom>
@@ -20,8 +19,8 @@ export default function BarreCriteres({criteres}){
             <Box
                 className={"barreCritere"}
             >
-                {criteres.length > 0 ? (
-                    criteres.map(cr => (
+                {critereContext.criteres.length > 0 ? (
+                    critereContext.criteres.map(cr => (
                         <>
                             <Card key={cr.id} sx={{ minWidth: 250, flexShrink: 0, maxWidth: 345 }}>
                                 <CardActionArea>

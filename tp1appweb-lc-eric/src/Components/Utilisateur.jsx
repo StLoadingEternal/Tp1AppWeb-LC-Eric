@@ -12,11 +12,16 @@ export default function Utilisateur({utilisateur}){
 
     function changerUtilisateur() {
         console.log("Test");
-        utilisateurContext.setUserActu(old => utilisateur.id);
+        utilisateurContext.setUserActu(old => {
+            return {
+                id: utilisateur.id,
+                role: utilisateur.role
+            };
+        });
         console.log(utilisateur.id)
     }
 
-    const estSelectionne = utilisateurContext.userActuId === utilisateur.id;
+    const estSelectionne = utilisateurContext.userActu.id === utilisateur.id;
 
     const styleItemSelectionne = {
         '&.Mui-selected': {
@@ -29,7 +34,7 @@ export default function Utilisateur({utilisateur}){
     };
 
     return (
-        <ListItem sx={utilisateurContext.userActuId === utilisateur.id ? styleItemSelectionne : ""}>
+        <ListItem sx={utilisateurContext.userActu.id === utilisateur.id ? styleItemSelectionne : ""}>
             <ListItemButton selected={estSelectionne} onClick={changerUtilisateur} sx={styleItemSelectionne}>
                 <ListItemAvatar>
                     <Avatar

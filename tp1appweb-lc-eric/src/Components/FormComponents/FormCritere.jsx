@@ -17,7 +17,7 @@ export default function FormCritere() {
         //Données du nouveau critère
 
         let id = ++critereRefId.current;
-        let noReference = utilisateurContext.userActuId;
+        let noReference = utilisateurContext.userActu.id;
         let titre = formData.get("titre");
         let dateCritere = formData.get("dateCritere");
         let anneeNouvelle = formData.get("anneeNouvelle");

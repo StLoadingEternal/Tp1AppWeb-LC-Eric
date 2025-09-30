@@ -14,6 +14,7 @@ export default function NouvelleBody({editer, supprimer, lire, newsProps }) {
             className={"makeitglass"}
             sx={{
                 maxWidth: 500,
+                height: '100%',
                 margin: "auto",
                 borderRadius: 3,
                 boxShadow: 5,
@@ -26,10 +27,9 @@ export default function NouvelleBody({editer, supprimer, lire, newsProps }) {
 
 
         >
-            {/* Image pleine largeur */}
             <CardMedia
                 component="img"
-                height="250"
+                height="280"
                 image={newsProps.image}
                 alt={newsProps.titre}
                 sx={{

@@ -6,12 +6,14 @@ import Box from "@mui/material/Box";
 import List from '@mui/material/List';
 import BarChartIcon from '@mui/icons-material/BarChart';
 
-export default function Statistiques({ stat }) {
+export default function Statistiques({stat}) {
+
     const longue = stat.plusLongueNouvelle();
     const courte = stat.plusCourteNouvelle();
     const moyenne = stat.tailleMoyenne().toFixed(1);
     const recente = stat.plusRecenteNouvelle();
-    const ancienne = stat.plusAncienneNouvelle();
+    const ancienne = stat.plusAncienneNouvelle()
+
     //Affichage des nouvelles en fonction des critères correspondant
 
     return (
@@ -56,53 +58,50 @@ export default function Statistiques({ stat }) {
                     />
                 </ListItem>
 
-                {longue && (
-                    <ListItem>
-                        <ListItemText
-                            primary={
-                                <>
-                                    <strong>Plus longue :</strong> {longue.titre} ({longue.resume.length} caractères)
-                                </>
-                            }
-                        />
-                    </ListItem>
-                )}
 
-                {courte && (
-                    <ListItem>
-                        <ListItemText
-                            primary={
-                                <>
-                                    <strong>Plus courte :</strong> {courte.titre} ({courte.resume.length} caractères)
-                                </>
-                            }
-                        />
-                    </ListItem>
-                )}
+                <ListItem>
+                    <ListItemText
+                        primary={
+                            <>
+                                <strong>Plus longue :</strong> {longue.titre} ({longue.resume.length} caractères)
+                            </>
+                        }
+                    />
+                </ListItem>
 
-                {recente && (
-                    <ListItem>
-                        <ListItemText
-                            primary={
-                                <>
-                                    <strong>Plus récente :</strong> {recente.titre} ({recente.date})
-                                </>
-                            }
-                        />
-                    </ListItem>
-                )}
 
-                {ancienne && (
-                    <ListItem>
-                        <ListItemText
-                            primary={
-                                <>
-                                    <strong>Plus ancienne :</strong> {ancienne.titre} ({ancienne.date})
-                                </>
-                            }
-                        />
-                    </ListItem>
-                )}
+                <ListItem>
+                    <ListItemText
+                        primary={
+                            <>
+                                <strong>Plus courte :</strong> {courte.titre} ({courte.resume.length} caractères)
+                            </>
+                        }
+                    />
+                </ListItem>
+
+
+                <ListItem>
+                    <ListItemText
+                        primary={
+                            <>
+                                <strong>Plus récente :</strong> {recente.titre} ({recente.date})
+                            </>
+                        }
+                    />
+                </ListItem>
+
+
+                <ListItem>
+                    <ListItemText
+                        primary={
+                            <>
+                                <strong>Plus ancienne :</strong> {ancienne.titre} ({ancienne.date})
+                            </>
+                        }
+                    />
+                </ListItem>
+
             </List>
         </Box>
     );

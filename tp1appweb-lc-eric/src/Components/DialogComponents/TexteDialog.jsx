@@ -25,6 +25,18 @@ export default function TexteDialog({ open, onClose, nouvelle }) {
             </DialogTitle>
 
             <DialogContent>
+                <Box
+                    component="img"
+                    src={nouvelle.image}
+                    alt={nouvelle.titre}
+                    sx={{
+                        width: "100%",
+                        maxHeight: 400,
+                        objectFit: "cover",
+                        borderRadius: 1,
+                        mb: 3,
+                    }}
+                />
                 <Typography variant="body1" sx={{ whiteSpace: "pre-wrap", mb: 4 }}>
                     {nouvelle.texte}
                 </Typography>

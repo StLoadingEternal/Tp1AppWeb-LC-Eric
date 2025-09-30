@@ -6,18 +6,18 @@ export default class NouvelleModel {
     _image;
     _texte;
     _resume;
-    _createurs;
+    _createur;
     _categorie;
 
 
-    constructor(noReference, date, titre, image, texte, resume, createurs, categorie) {
+    constructor(noReference, date, titre, image, texte, resume, createur, categorie) {
         this._id = noReference;
         this._date = date;
         this._titre = titre;
         this._image = image;
         this._texte = texte;
         this._resume = resume;
-        this._createurs = createurs;
+        this._createur = createur;
         this._categorie = categorie;
     }
 
@@ -86,12 +86,13 @@ export default class NouvelleModel {
         this._resume = value;
     }
 
-    get createurs() {
-        return this._createurs;
+
+    get createur() {
+        return this._createur;
     }
 
-    set createurs(value) {
-        this._createurs = value;
+    set createur(value) {
+        this._createur = value;
     }
 
     toJSON() {
@@ -102,7 +103,7 @@ export default class NouvelleModel {
             image: this._image,
             texte: this._texte,
             resume: this._resume,
-            createurs: this._createurs,
+            createur: this._createur,
             categorie: this._categorie
         };
     }

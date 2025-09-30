@@ -15,7 +15,7 @@ export default function FormNews({changerNouvelle, ajouterNouvelle, nouvelle, on
             formData.get("image"),
             formData.get("texte"),
             formData.get("resume"),
-            nouvelle?.createurs || "", // on garde les createurs si déjà définis
+            nouvelle?.createur || "", // on garde les createurs si déjà définis
             nouvelle?.categorie || "" // categorie
         );
 
@@ -59,7 +59,7 @@ export default function FormNews({changerNouvelle, ajouterNouvelle, nouvelle, on
                     />
                 </Grid>
 
-                <Grid item xs={12}>
+                <Grid item xs={12} sm={6}>
                     <TextField
                         name="texte"
                         label="Contenu"
@@ -72,13 +72,14 @@ export default function FormNews({changerNouvelle, ajouterNouvelle, nouvelle, on
                     />
                 </Grid>
 
-                <Grid item xs={12}>
+                <Grid item xs={12} sm={6}>
                     <TextField
                         name="image"
                         label="Image (URL)"
                         defaultValue={nouvelle?.image}
                         variant="outlined"
                         fullWidth
+                        required
                     />
                 </Grid>
 
@@ -95,7 +96,7 @@ export default function FormNews({changerNouvelle, ajouterNouvelle, nouvelle, on
                     />
                 </Grid>
 
-                <Grid item xs={12} textAlign="center">
+                <Grid item xs={12} sm={6} textAlign="center">
                     <Button variant="contained" color="primary" type="submit">
                         Enregistrer
                     </Button>

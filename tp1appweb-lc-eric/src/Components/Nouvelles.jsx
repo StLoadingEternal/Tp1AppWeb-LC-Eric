@@ -7,13 +7,12 @@ import ConfirmationDialog from "./DialogComponents/ConfirmationDialog.jsx";
 import FormNews from "./FormComponents/FormNews.jsx";
 import Button from "@mui/material/Button";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
-import ModeEditIcon from "@mui/icons-material/ModeEdit";
-import {parse, v4 as uuidv4} from 'uuid';
+import {v4 as uuidv4} from 'uuid';
 import Typography from "@mui/material/Typography";
-import {CritereContext} from "./CritereContext.jsx";
 import TexteDialog from "./DialogComponents/TexteDialog.jsx";
 import Box from "@mui/material/Box";
 import appliquerFiltres from "../scripts/filtrerNouvelles.js";
+import Role from "../models/Role.js";
 
 export default function Nouvelles({nouvelles, currentUser, criteres}) {
     //Etat qui indique si un dialog est ouvert
@@ -69,6 +68,7 @@ export default function Nouvelles({nouvelles, currentUser, criteres}) {
         setOpenDialog({isEditing: false, id: -1, action: ""})
     }
 
+    //Modifier une nouvelle
     function changerNouvelle(nouvelle) {
         newsContext.setNews(old => [nouvelle, ...old.filter(n => n.id !== nouvelle.id)]);
 
@@ -87,7 +87,7 @@ export default function Nouvelles({nouvelles, currentUser, criteres}) {
     //Ajouter
     function ajouterNouvelle(nouvelle) {
         nouvelle.id = uuidv4();//Id unique
-        nouvelle.createurs = [currentUser]// Id des créateurs
+        nouvelle.createur = currentUser.id// Id des créateurs
         newsContext.setNews(old => [nouvelle, ...old]);
     }
 
@@ -105,22 +105,26 @@ export default function Nouvelles({nouvelles, currentUser, criteres}) {
                     fontWeight: 'bold',
                     textTransform: 'uppercase',
                     color: 'primary.main',
-                    mt: 4,
-                    mb: 2,
+                    mt: 2,
+                    mb: 5,
                     letterSpacing: 2,
                 }}
             >
                 Actualités Sportives Mondiales
             </Typography>
-            {/*Ajout d'une nouvelle au clic. id = -1 */}
-            <Box sx={{textAlign: 'center', mb: 3}}>
-                <Button onClick={() => {
-                    setOpenDialog({isEditing: true, id: -1, action: "editer"});
-                }}>
-                    <AddCircleOutlineIcon/>
-                    Ajouter une Nouvelle
-                </Button>
-            </Box>
+            {/*Ajout d'une nouvelle au clic. id = -1; seul les journalistes peuvent ajouter*/}
+            {currentUser.role !== Role.ADMIN && (
+                <Box sx={{ textAlign: 'center', mb: 3 }}>
+                    <Button
+                        onClick={() => {
+                            setOpenDialog({ isEditing: true, id: -1, action: "editer" });
+                        }}
+                        startIcon={<AddCircleOutlineIcon />}
+                    >
+                        Ajouter une Nouvelle
+                    </Button>
+                </Box>
+            )}
             <Grid container spacing={2}>
                 {nouvellesFiltres}
             </Grid>

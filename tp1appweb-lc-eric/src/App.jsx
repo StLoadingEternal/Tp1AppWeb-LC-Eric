@@ -18,6 +18,8 @@ import BarDrawer from "./Components/DrawerComponents/BarDrawer.jsx";
 import Statistique from "./models/Statistique.js";
 import Statistiques from "./Components/Statistiques.jsx";
 import {themeNouvelles} from "./theme/themeNouvelles.js";
+import {utilisateursJson} from "./scripts/utilisateurs.js";
+import Role from "./models/Role.js";
 
 
 /**
@@ -38,7 +40,7 @@ function genererNouvelles(){
             nouvelle.image,
             nouvelle.texte,
             nouvelle.resume,
-            nouvelle.createurs,
+            nouvelle.createur,
             nouvelle.categorie
         ));
         window.localStorage.setItem("nouvelles", JSON.stringify(nouvellesGenereres));
@@ -52,7 +54,7 @@ function genererNouvelles(){
             nouvelle.image,
             nouvelle.texte,
             nouvelle.resume,
-            nouvelle.createurs,
+            nouvelle.createur,
             nouvelle.categorie
         ));
 
@@ -84,18 +86,26 @@ function lireCriteresSauvegardes(){
 
 function App() {
 
-    //Le modèle affichait un bug à régler
+    //Etat des nouvelles
     const [news, setNews] = useState(genererNouvelles());
-    const [userActuId, setUserActu] = useState(1);
+
+    //Etat utilisateur actuel son id et son role
+    const [userActu, setUserActu] = useState({id: 1, role: Role.ADMIN});
+
+    //Etat des criteres existants
     const [criteres, setCriteres] = useState(lireCriteresSauvegardes);
 
     // cet etat permet la selection d'un seul critere
     const [critereSelectedId, setCritereSelection] = useState();
 
-    let criteresEnFonctionUser =criteres.filter(cr => cr.noReference === userActuId); // les criteres sont tries en fonction de l'user connecte
-    let nouvelleEnFonctionUser = news.filter(n => n.createurs.includes(userActuId));  // les nouvelles sont tries en fonction de l'user connecte
+    // les criteres sont tries en fonction de l'user connecte
+    let criteresEnFonctionUser = criteres.filter(cr => cr.noReference === userActu.id);
 
-    //Recuperer l'utilisateur connecté
+    // les nouvelles sont tries en fonction de l'user connecte
+    //L'admin voit toute les nouvelles
+    let nouvelleEnFonctionUser = userActu.role === Role.ADMIN ? news : news.filter(n => n.createur === userActu.id);
+
+
 
     // Sauvegarder les elements dans le localStorage en cas de changement sur l'etat news
     useEffect(() => {
@@ -115,7 +125,7 @@ function App() {
     return (
         <>
             <ThemeProvider theme={themeNouvelles}>
-                <UtilisateurContext.Provider value={{userActuId, setUserActu}}>
+                <UtilisateurContext.Provider value={{userActu, setUserActu}}>
                     <CritereContext.Provider value={{criteres, setCriteres}}>
                         <Box  sx={{
                             backgroundImage: 'linear-gradient(135deg, #89f7fe 0%, #66a6ff 100%)',
@@ -133,7 +143,7 @@ function App() {
                                     <NewsContext.Provider value={{news, setNews}}>
                                         <Nouvelles
                                             nouvelles={nouvelleEnFonctionUser}
-                                            currentUser={userActuId}
+                                            currentUser={userActu}
                                             criteres={criteres.find(cr => cr.id === critereSelectedId)}/> {/* ON envoie le critere selectionne*/}
                                     </NewsContext.Provider>
                                 </Grid>

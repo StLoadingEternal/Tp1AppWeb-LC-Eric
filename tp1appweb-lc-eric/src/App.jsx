@@ -148,7 +148,7 @@ function App() {
                             <Grid
                                 className={"corps"}
                                 container spacing={1}>
-                                <Grid sx={{ height: "100vh", overflowY: 'scroll'}} size={10}>
+                                <Grid sx={{ height: "100%", overflowY: 'scroll'}} size={10}>
                                     <NewsContext.Provider value={{news, setNews}}>
                                         <Nouvelles
                                             nouvelles={nouvelleEnFonctionUser}

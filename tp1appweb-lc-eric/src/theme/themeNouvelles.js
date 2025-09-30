@@ -7,19 +7,22 @@ export const themeNouvelles = createTheme({
             main: '#003366',
         },
         secondary: {
-            main: '#006699',
+            main: '#dfe9ff',        // Couleur plate secondaire
         },
         accent: {
             main: '#FF6F61', // couleur d'accent ici si besoin
         },
         background: {
-            default: '#F4F7FA',
-            paper: '#ffffff',
+            default: "",
+            paper: '#edf2f7',
         },
         text: {
             primary: '#212121',
             secondary: '#555',
         },
+    },
+    customGradients: {
+        secondary: 'linear-gradient(to bottom right, #f0f4ff, #dfe9ff)',
     },
     typography: {
         fontFamily: `'Roboto', 'Helvetica', 'Arial', sans-serif`,

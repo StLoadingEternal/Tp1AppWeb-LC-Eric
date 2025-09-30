@@ -21,7 +21,7 @@
     box-sizing: border-box;
     padding: 8px;
     color: black;
-    background: linear-gradient(to bottom right, #66ccff, #3399ff);
+    /*background: linear-gradient(to bottom right, #66ccff, #3399ff);*/
     border-radius: 8px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
 }

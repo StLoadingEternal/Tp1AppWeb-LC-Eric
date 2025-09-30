@@ -53,8 +53,13 @@ export default function MenuUtilisateur(){
 
     return (
 
-        <Box className={"makeitglass menuUtilisateur"}>
-            <Typography variant="h5" sx={{ml: 2}} gutterBottom>
+        <Box className={"makeitglass menuUtilisateur"} sx={{ backgroundColor: 'secondary.main' }}>
+            <Typography variant="h5" sx={{
+                ml: 2,
+                fontFamily: '"Georgia", serif',
+                fontWeight: "bold",
+                color: 'primary.main'}} gutterBottom
+            >
                 Menu Utilisateur
             </Typography>
             <List dense sx={{justifyContent: "center", textAlign: "center"}}>

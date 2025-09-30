@@ -34,7 +34,7 @@ export default function FormNews({changerNouvelle, ajouterNouvelle, nouvelle, on
         <form onSubmit={handleSubmit}>
             <Grid container spacing={2} padding={4}>
                 <Grid item xs={12}>
-                    <Typography variant="h4" textAlign="center">Modifier une nouvelle</Typography>
+                    <Typography variant="h4" textAlign="center">{nouvelle ? "Modifier une nouvelle" : "Ajouter une nouvelle"}</Typography>
                 </Grid>
 
                 <Grid item xs={12} sm={6}>
@@ -45,6 +45,7 @@ export default function FormNews({changerNouvelle, ajouterNouvelle, nouvelle, on
                         variant="outlined"
                         fullWidth
                         required
+                        disabled={nouvelle}
                     />
                 </Grid>
 
@@ -80,6 +81,7 @@ export default function FormNews({changerNouvelle, ajouterNouvelle, nouvelle, on
                         variant="outlined"
                         fullWidth
                         required
+                        disabled={nouvelle}
                     />
                 </Grid>
 
@@ -93,6 +95,7 @@ export default function FormNews({changerNouvelle, ajouterNouvelle, nouvelle, on
                         fullWidth
                         InputLabelProps={{ shrink: true }}
                         required
+                        disabled={nouvelle}
                     />
                 </Grid>
 
@@ -100,7 +103,7 @@ export default function FormNews({changerNouvelle, ajouterNouvelle, nouvelle, on
                     <Button variant="contained" color="primary" type="submit">
                         Enregistrer
                     </Button>
-                    <Button variant="outlined" color="secondary" onClick={onClose} style={{ marginLeft: 10 }}>
+                    <Button variant="outlined" color="accent" onClick={onClose} style={{ marginLeft: 10 }}>
                         Annuler
                     </Button>
                 </Grid>

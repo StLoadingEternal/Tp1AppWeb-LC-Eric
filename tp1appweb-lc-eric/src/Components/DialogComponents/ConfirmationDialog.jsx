@@ -5,25 +5,20 @@ export default function ConfirmationDialog ({open, onClose, nouvelle, supprimerN
 
     return(
         <>
-            <Dialog
-                open={open}
-                aria-labelledby="alert-dialog-title"
-                aria-describedby="alert-dialog-description"
-            >
-                <DialogTitle id="alert-dialog-title">
-                    {"Suppression d'une nouvelle"}
+            <Dialog open={open} onClose={onClose} aria-labelledby="alert-dialog-title" aria-describedby="alert-dialog-description">
+                <DialogTitle>
+                    Suppression d'une nouvelle
                 </DialogTitle>
                 <DialogContent>
-                    <DialogContentText id="alert-dialog-description">
-                        Voulez-vous vraiment supprimer la nouvelle :
-                        <strong> {nouvelle?.titre}</strong>
+                    <DialogContentText >
+                        Voulez-vous vraiment supprimer la nouvelle :<strong> {nouvelle?.titre}</strong>
                     </DialogContentText>
                 </DialogContent>
                 <DialogActions>
-                    <Button onClick={onClose}>
+                    <Button onClick={onClose} variant="outlined" color="accent">
                         Annuler
                     </Button>
-                    <Button onClick={() => supprimerNouvelle(nouvelle.id)} autoFocus>
+                    <Button onClick={() => supprimerNouvelle(nouvelle.id)} variant="contained" color="primary" autoFocus>
                         Confirmer
                     </Button>
                 </DialogActions>

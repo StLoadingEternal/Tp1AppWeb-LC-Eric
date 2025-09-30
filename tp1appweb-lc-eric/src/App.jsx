@@ -3,7 +3,7 @@ import {useEffect, useState} from "react";
 import Nouvelles from "./Components/Nouvelles.jsx";
 import {NewsContext} from "./Components/NewsContext.jsx";
 import MenuUtilisateur from "./Components/MenuUtilisateur.jsx";
-import {Card, CardContent, Container, Grid, ThemeProvider} from "@mui/material";
+import {Card, CardContent, Container, Grid, Paper, ThemeProvider} from "@mui/material";
 import Box from "@mui/material/Box";
 
 import {nouvelles} from "./scripts/nouvelles.js";
@@ -20,6 +20,7 @@ import Statistiques from "./Components/Statistiques.jsx";
 import {themeNouvelles} from "./theme/themeNouvelles.js";
 import {utilisateursJson} from "./scripts/utilisateurs.js";
 import Role from "./models/Role.js";
+import {styled} from "@mui/material/styles";
 
 
 /**
@@ -117,6 +118,14 @@ function App() {
         window.localStorage.setItem("criteres", JSON.stringify(criteres));
     }, [criteres]);
 
+    const FooterWithTheme = styled(Paper)(({theme}) => ({
+        padding: theme.spacing(1),
+        textAlign: 'center',
+        color: theme.palette.text.secondary,
+        width: "97%",
+        margin: theme.spacing(2)
+    }));
+
 
     const barreCritere = <BarreCriteres criteres={criteresEnFonctionUser}
                                         critereSelectedId={critereSelectedId} // on envoie un etat pour gerer la selection de critere
@@ -152,6 +161,7 @@ function App() {
                                     <Statistiques stat={new Statistique(news)}></Statistiques>
                                 </Grid>
                             </Grid>
+                            <FooterWithTheme>Copyright <span>2025{'\u24C7'}</span> - <strong>LASS & TED NEWS</strong></FooterWithTheme>
                         </Box>
                     </CritereContext.Provider>
                 </UtilisateurContext.Provider>

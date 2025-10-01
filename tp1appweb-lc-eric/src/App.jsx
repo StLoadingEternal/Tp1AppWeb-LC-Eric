@@ -20,73 +20,14 @@ import {darkTheme, lightTheme} from "./theme/themeNouvelles.js";
 import Role from "./models/Role.js";
 import {styled} from "@mui/material/styles";
 import {categories} from "./scripts/categorie.js";
+import {genererNouvelles, lireCriteresSauvegardes, sauvegarderDonnees} from "./scripts/SauvegardeLecture.js";
 
-
-/**
- * cette methode permet de generer les nouvelles a partir d'un json dans le cas
- *  ou le localStorage est vide
- *  Mais si ce dernier ne l'est pas on recupere son contenu et on le passe en tant qu'Etat.
- * @returns {*}
- */
-function genererNouvelles(){
-    let nouvellesGenereres = [];
-    let sauvegarde = window.localStorage.getItem("nouvelles");
-    if (sauvegarde === null) { // Si le localStorage est vide
-        nouvellesGenereres = nouvelles.map(nouvelle => new NouvelleModel(
-            nouvelle.id,
-            nouvelle.date,
-            nouvelle.titre,
-            nouvelle.image,
-            nouvelle.texte,
-            nouvelle.resume,
-            nouvelle.createur,
-            nouvelle.categorie
-        ));
-        window.localStorage.setItem("nouvelles", JSON.stringify(nouvellesGenereres));
-    }
-    else { // Si le localStorage n'est pas vide.
-        let parsed = JSON.parse(sauvegarde);
-        nouvellesGenereres = parsed.map(nouvelle => new NouvelleModel(
-            nouvelle.id,
-            nouvelle.date,
-            nouvelle.titre,
-            nouvelle.image,
-            nouvelle.texte,
-            nouvelle.resume,
-            nouvelle.createur,
-            nouvelle.categorie
-        ));
-
-    }
-
-    return nouvellesGenereres;
-}
-
-function lireCriteresSauvegardes(){
-    let critereGeneres = [];
-    let sauvegarde = window.localStorage.getItem("criteres");
-
-    if (sauvegarde !== null ){
-        let parsed = JSON.parse(sauvegarde);
-        critereGeneres = parsed.map(cr => new CritereModel(
-            cr.id,
-            cr.noReference,
-            cr.titre,
-            cr.date,
-            cr.categorie,
-            cr.anneeNouvelle,
-            cr.motsCles
-        ));
-    }
-
-    return critereGeneres;
-}
 
 
 function App() {
 
     //Etat des nouvelles
-    const [news, setNews] = useState(genererNouvelles());
+    const [news, setNews] = useState(genererNouvelles);
 
     // Categories
     const [categoriesList, setCategorie] = useState(categories);
@@ -114,6 +55,7 @@ function App() {
     let critereAplliquer = criteres.find(cr => cr.id === critereSelectedId)
 
 
+
     /**
      * Change le theme (light ou dark)
      * @param e
@@ -123,14 +65,26 @@ function App() {
     }
 
     // Sauvegarder les elements dans le localStorage en cas de changement sur l'etat news
-    useEffect(() => {
-        window.localStorage.setItem("nouvelles", JSON.stringify(news));
-    }, [news]);
+    // Sauvegarder les elements dans le localStorage en cas de fermeture
 
-    // sauvegarder les criteres
     useEffect(() => {
-        window.localStorage.setItem("criteres", JSON.stringify(criteres));
-    }, [criteres]);
+        const handleBeforeUnload = (event) => {
+            // sauvegarde
+            sauvegarderDonnees("nouvelles",news);
+            sauvegarderDonnees("criteres", criteres);
+
+        };
+
+        window.addEventListener("beforeunload", handleBeforeUnload);
+
+        return () => {
+            window.removeEventListener("beforeunload", handleBeforeUnload);
+        };
+    }, [news, criteres]);
+
+
+
+
 
     //Composant footer
     const FooterWithTheme = styled(Paper)(({theme}) => ({

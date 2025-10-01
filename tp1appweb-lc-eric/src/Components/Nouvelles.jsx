@@ -1,7 +1,7 @@
 import Nouvelle from "./Nouvelle.jsx";
 import {useContext, useState} from "react";
 import {Grid} from "@mui/material";
-import {NewsContext} from "./NewsContext.jsx";
+import {NewsContext} from "./Contexts/NewsContext.jsx";
 import NewsDialog from "./DialogComponents/NewsDialog.jsx";
 import ConfirmationDialog from "./DialogComponents/ConfirmationDialog.jsx";
 import FormNews from "./FormComponents/FormNews.jsx";

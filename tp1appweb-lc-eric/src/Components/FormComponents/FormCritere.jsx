@@ -1,8 +1,9 @@
 import { Button, Grid, TextField, Typography } from "@mui/material";
 import CritereModel from "../../models/CritereModel.js";
 import {useContext, useRef} from "react";
-import {CritereContext} from "../CritereContext.jsx";
-import {UtilisateurContext} from "../utilisateurContext.jsx";
+import {CritereContext} from "../Contexts/CritereContext.jsx";
+import {UtilisateurContext} from "../Contexts/utilisateurContext.jsx";
+import CategorieDeroulante from "../MUIComponents/CategorieDeroulante.jsx";
 
 export default function FormCritere() {
     const critereContext = useContext(CritereContext);
@@ -15,7 +16,6 @@ export default function FormCritere() {
         const formData = new FormData(e.target);
 
         //Données du nouveau critère
-
         let id = ++critereRefId.current;
         let noReference = utilisateurContext.userActu.id;
         let titre = formData.get("titre");
@@ -116,19 +116,7 @@ export default function FormCritere() {
                 </Grid>
 
                 {/* Catégorie */}
-                <Grid item xs={12} sm={6}>
-                    <Typography variant="subtitle1" textAlign="left">
-                        Catégorie de sport de la nouvelle
-                    </Typography>
-                    <TextField
-                        name="categorie"
-                        label="Catégorie de sport"
-                        variant="filled"
-                        fullWidth
-                        required
-                        placeholder="Entrez une catégorie"
-                    />
-                </Grid>
+                <CategorieDeroulante></CategorieDeroulante>
 
                 {/* Bouton de soumission */}
                 <Grid item xs={12} textAlign="center">

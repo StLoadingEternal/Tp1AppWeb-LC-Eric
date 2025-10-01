@@ -1,15 +1,15 @@
 import './App.css'
 import {useEffect, useState} from "react";
 import Nouvelles from "./Components/Nouvelles.jsx";
-import {NewsContext} from "./Components/NewsContext.jsx";
+import {NewsContext} from "./Components/Contexts/NewsContext.jsx";
 import MenuUtilisateur from "./Components/MenuUtilisateur.jsx";
 import {Card, CardContent, Container, Grid, Paper, ThemeProvider} from "@mui/material";
 import Box from "@mui/material/Box";
 
 import {nouvelles} from "./scripts/nouvelles.js";
 import NouvelleModel from "./models/NouvelleModel.js";
-import {UtilisateurContext} from "./Components/utilisateurContext.jsx";
-import {CritereContext} from "./Components/CritereContext.jsx";
+import {UtilisateurContext} from "./Components/Contexts/utilisateurContext.jsx";
+import {CritereContext} from "./Components/Contexts/CritereContext.jsx";
 import FormCritere from "./Components/FormComponents/FormCritere.jsx";
 import CritereModel from "./models/CritereModel.js";
 import Typography from "@mui/material/Typography";
@@ -21,6 +21,7 @@ import {themeNouvelles} from "./theme/themeNouvelles.js";
 import {utilisateursJson} from "./scripts/utilisateurs.js";
 import Role from "./models/Role.js";
 import {styled} from "@mui/material/styles";
+import {categories} from "./scripts/categorie.js";
 
 
 /**
@@ -32,7 +33,6 @@ import {styled} from "@mui/material/styles";
 function genererNouvelles(){
     let nouvellesGenereres = [];
     let sauvegarde = window.localStorage.getItem("nouvelles");
-
     if (sauvegarde === null) { // Si le localStorage est vide
         nouvellesGenereres = nouvelles.map(nouvelle => new NouvelleModel(
             nouvelle.id,
@@ -89,6 +89,9 @@ function App() {
 
     //Etat des nouvelles
     const [news, setNews] = useState(genererNouvelles());
+
+    // Categories
+    const [categoriesList, setCategorie] = useState(categories);
 
     //Etat utilisateur actuel son id et son role
     const [userActu, setUserActu] = useState({id: 1, role: Role.ADMIN});

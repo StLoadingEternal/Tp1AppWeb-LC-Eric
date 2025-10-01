@@ -3,7 +3,7 @@ import {Card, CardActionArea, CardActions, CardContent, CardMedia} from "@mui/ma
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import {useContext} from "react";
-import {CritereContext} from "./CritereContext.jsx";
+import {CritereContext} from "./Contexts/CritereContext.jsx";
 
 
 export default function BarreCriteres({criteres, critereSelectedId, setCritereSelection}){

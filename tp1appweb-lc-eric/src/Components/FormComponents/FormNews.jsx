@@ -1,5 +1,6 @@
 import { Grid, TextField, Typography, Button } from "@mui/material";
 import NouvelleModel from "../../models/NouvelleModel.js";
+import CategorieDeroulante from "../MUIComponents/CategorieDeroulante.jsx";
 
 export default function FormNews({changerNouvelle, ajouterNouvelle, nouvelle, onClose }) {
 
@@ -15,8 +16,9 @@ export default function FormNews({changerNouvelle, ajouterNouvelle, nouvelle, on
             formData.get("image"),
             formData.get("texte"),
             formData.get("resume"),
+
             nouvelle?.createur || "", // on garde les createurs si déjà définis
-            nouvelle?.categorie || "" // categorie
+            formData.get("categorie")
         );
 
         if (nouvelle === undefined) {
@@ -84,6 +86,8 @@ export default function FormNews({changerNouvelle, ajouterNouvelle, nouvelle, on
                         disabled={nouvelle}
                     />
                 </Grid>
+
+                <CategorieDeroulante/>
 
                 <Grid item xs={12} sm={6}>
                     <TextField

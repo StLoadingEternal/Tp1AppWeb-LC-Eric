@@ -1,103 +1,105 @@
+import {categories} from "./categorie.js";
+
+
 export const nouvelles = [
     {
-        id:1,
+        id: 1,
         date: "2025-09-15",
         titre: "Victoire historique pour l'équipe nationale de football",
         image: "public/images2/Soccer.jpg",
-        texte: "L'équipe nationale de football a remporté une victoire historique contre son rival traditionnel, grâce à un but décisif marqué en toute fin de match. Les fans étaient en délire tandis que les joueurs célébraient cette victoire mémorable.",
+        texte: "L'équipe nationale de football a remporté une victoire historique contre son rival traditionnel...",
         resume: "L'équipe nationale de football gagne contre son rival avec un but en fin de match.",
-        categorie: "Soccer",
+        categorie: categories[0], // Soccer
         createur: 2
     },
     {
-        id:2,
+        id: 2,
         date: "2025-09-14",
         titre: "Usain Bolt annonce son retour sur les pistes",
         image: "public/images2/Usain.jpg",
-        texte: "Légende vivante de l'athlétisme, Usain Bolt, a annoncé qu'il faisait son retour après trois ans d'absence. Il a affirmé vouloir battre un dernier record avant de prendre définitivement sa retraite.",
+        texte: "Légende vivante de l'athlétisme, Usain Bolt, a annoncé qu'il faisait son retour...",
         resume: "Usain Bolt annonce son retour sur les pistes pour une dernière course.",
-        categorie: "Athlétisme",
+        categorie: categories[1], // Athlétisme
         createur: 2
     },
     {
-        id:3,
+        id: 3,
         date: "2025-09-13",
         titre: "Le Paris Saint-Germain prépare une nouvelle saison ambitieuse",
         image: "public/images2/PSG.jpg",
-        texte: "Le PSG a débuté sa pré-saison avec des ambitions élevées, mettant l'accent sur la préparation physique et tactique pour attaquer la Ligue des champions et la Ligue 1.",
+        texte: "Le PSG a débuté sa pré-saison avec des ambitions élevées...",
         resume: "Le PSG commence sa pré-saison avec de grands objectifs pour la saison à venir.",
-        categorie: "Soccer",
+        categorie: categories[0], // Soccer
         createur: 3
     },
     {
-        id:4,
+        id: 4,
         date: "2025-09-12",
         titre: "Rafael Nadal prête son nom à une nouvelle académie de tennis",
         image: "public/images2/Nadal.jpg",
-        texte: "Rafael Nadal a inauguré une nouvelle académie de tennis en Espagne, destinée à former les prochaines générations de champions, tout en mettant l'accent sur la discipline et le travail acharné.",
+        texte: "Rafael Nadal a inauguré une nouvelle académie de tennis en Espagne...",
         resume: "Rafael Nadal ouvre une académie pour former les futurs champions.",
-        categorie: "Tennis",
+        categorie: categories[2], // Tennis
         createur: 4
     },
     {
-        id:5,
+        id: 5,
         date: "2025-09-11",
         titre: "NBA : Le retour des stars pour la nouvelle saison",
         image: "/public/images2/NBA.jpg",
-        texte: "Les stars de la NBA sont de retour pour une nouvelle saison qui promet d'être spectaculaire. Avec des transferts de grande envergure, la compétition est plus féroce que jamais.",
+        texte: "Les stars de la NBA sont de retour pour une nouvelle saison...",
         resume: "Les stars de la NBA sont prêtes pour une saison 2025 palpitante.",
-        categorie: "Basketball",
+        categorie: categories[3], // Basketball
         createur: 4
     },
     {
-        id:6,
+        id: 6,
         date: "2025-09-10",
         titre: "Les All Blacks dominent le rugby mondial",
         image: "/public/images2/AllStar.jpg",
-        texte: "L'équipe des All Blacks continue de dominer le monde du rugby avec une série de victoires impressionnantes, consolidant leur place en tant que meilleure équipe mondiale.",
+        texte: "L'équipe des All Blacks continue de dominer le monde du rugby...",
         resume: "Les All Blacks maintiennent leur domination sur le rugby mondial.",
-        categorie: "Rugby",
+        categorie: categories[4], // Rugby
         createur: 2
     },
     {
-        id:7,
+        id: 7,
         date: "2025-09-09",
         titre: "Le Tour de France dévoile son parcours 2026",
         image: "/public/images2/TDF.jpg",
-        texte: "Le parcours du Tour de France 2026 a été révélé, avec des étapes montagneuses très exigeantes et une arrivée sur les Champs-Élysées qui s’annonce grandiose.",
+        texte: "Le parcours du Tour de France 2026 a été révélé...",
         resume: "Le parcours du Tour de France 2026 est dévoilé avec des défis de taille.",
-        categorie: "Vélo",
+        categorie: categories[5], // Vélo
         createur: 3
-
     },
     {
-        id:8,
+        id: 8,
         date: "2025-09-08",
         titre: "La Formula 1 prépare son grand prix à Monaco",
         image: "/public/images2/MonacoF1.jpg",
-        texte: "La compétition de Formule 1 se prépare pour le Grand Prix de Monaco, l'un des événements les plus prestigieux du calendrier, avec des pilotes prêts à tout pour décrocher la victoire.",
+        texte: "La compétition de Formule 1 se prépare pour le Grand Prix de Monaco...",
         resume: "Le Grand Prix de Monaco se profile avec des pilotes de F1 déterminés à briller.",
-        categorie: "Formule 1",
+        categorie: categories[6], // Formule 1
         createur: 4
     },
     {
-        id:9,
+        id: 9,
         date: "2025-09-07",
         titre: "Kylian Mbappé reste au PSG malgré les rumeurs",
         image: "/public/images2/Mbappe.jpg",
-        texte: "Kylian Mbappé a annoncé qu'il resterait au Paris Saint-Germain pour la saison 2025, mettant ainsi fin aux spéculations concernant son futur transfert.",
+        texte: "Kylian Mbappé a annoncé qu'il resterait au Paris Saint-Germain pour la saison 2025...",
         resume: "Kylian Mbappé confirme sa saison au PSG malgré les rumeurs de transfert.",
-        categorie: "Soccer",
+        categorie: categories[0], // Soccer
         createur: 3
     },
     {
-        id:10,
+        id: 10,
         date: "2025-09-06",
         titre: "Le FC Barcelone annonce un projet de rénovation du Camp Nou",
         image: "/public/images2/campNou.jpg",
-        texte: "Le FC Barcelone a révélé ses plans pour rénover le mythique stade Camp Nou, avec des améliorations modernes visant à offrir une meilleure expérience aux spectateurs.",
+        texte: "Le FC Barcelone a révélé ses plans pour rénover le mythique stade Camp Nou...",
         resume: "Le FC Barcelone dévoile son projet de rénovation du Camp Nou.",
-        categorie: "Soccer",
+        categorie: categories[0], // Soccer
         createur: 2
     }
 ];

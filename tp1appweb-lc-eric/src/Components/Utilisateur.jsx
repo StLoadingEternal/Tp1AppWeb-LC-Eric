@@ -4,8 +4,8 @@ import Avatar from "@mui/material/Avatar";
 import ListItem from "@mui/material/ListItem";
 import ListItemText from "@mui/material/ListItemText";
 import {useContext} from "react";
-import {NewsContext} from "./NewsContext.jsx";
-import {UtilisateurContext} from "./utilisateurContext.jsx";
+import {NewsContext} from "./Contexts/NewsContext.jsx";
+import {UtilisateurContext} from "./Contexts/utilisateurContext.jsx";
 
 export default function Utilisateur({utilisateur}){
     let utilisateurContext = useContext(UtilisateurContext);

@@ -8,21 +8,27 @@ import {NewsContext} from "./Contexts/NewsContext.jsx";
 import {UtilisateurContext} from "./Contexts/utilisateurContext.jsx";
 
 export default function Utilisateur({utilisateur}){
+
     let utilisateurContext = useContext(UtilisateurContext);
 
+    /**
+     * Changement de l'utilisateur connecté. On met à jour l'état d'utilisateur connecté.
+     */
     function changerUtilisateur() {
-        console.log("Test");
+
         utilisateurContext.setUserActu(old => {
             return {
                 id: utilisateur.id,
                 role: utilisateur.role
             };
         });
-        console.log(utilisateur.id)
+        console.log(utilisateur.id)//Trace utilisateur connecté (id)
     }
+
 
     const estSelectionne = utilisateurContext.userActu.id === utilisateur.id;
 
+    //Demarqué l'utilisateur connecté
     const styleItemSelectionne = {
         '&.Mui-selected': {
             backgroundColor: 'primary.main',
@@ -34,7 +40,7 @@ export default function Utilisateur({utilisateur}){
     };
 
     return (
-        <ListItem sx={utilisateurContext.userActu.id === utilisateur.id ? styleItemSelectionne : ""}>
+        <ListItem sx={{color:"text.primary"}}>
             <ListItemButton selected={estSelectionne} onClick={changerUtilisateur} sx={styleItemSelectionne}>
                 <ListItemAvatar>
                     <Avatar

@@ -9,6 +9,8 @@ export default function FormNews({changerNouvelle, ajouterNouvelle, nouvelle, on
         e.preventDefault();
 
         const formData = new FormData(e.target);
+
+        //Données du critère ajouter ou modifier
         const nouvelleSoumise = new NouvelleModel(
             nouvelle?.id,
             formData.get("date"),
@@ -22,17 +24,19 @@ export default function FormNews({changerNouvelle, ajouterNouvelle, nouvelle, on
         );
 
         if (nouvelle === undefined) {
-            // Ajout
+            // Ajout quand aucune nouvelle n'est passée
             ajouterNouvelle(nouvelleSoumise);
         } else {
-            // Édition
+            // Modification dans le cas contraire
             changerNouvelle(nouvelleSoumise);
         }
+        //Fermerture du formulaire
         if (onClose)
             onClose();
     }
 
     return (
+        /*Modification ou ajout d'un nouveau critère*/
         <form onSubmit={handleSubmit}>
             <Grid container spacing={2} padding={4}>
                 <Grid item xs={12}>
@@ -47,7 +51,7 @@ export default function FormNews({changerNouvelle, ajouterNouvelle, nouvelle, on
                         variant="outlined"
                         fullWidth
                         required
-                        disabled={nouvelle}
+
                     />
                 </Grid>
 
@@ -83,7 +87,7 @@ export default function FormNews({changerNouvelle, ajouterNouvelle, nouvelle, on
                         variant="outlined"
                         fullWidth
                         required
-                        disabled={nouvelle}
+
                     />
                 </Grid>
 
@@ -99,7 +103,6 @@ export default function FormNews({changerNouvelle, ajouterNouvelle, nouvelle, on
                         fullWidth
                         InputLabelProps={{ shrink: true }}
                         required
-                        disabled={nouvelle}
                     />
                 </Grid>
 

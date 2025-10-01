@@ -1,4 +1,3 @@
-import {nouvelles} from "../scripts/nouvelles.js";
 
 export default class Statistique{
 
@@ -15,36 +14,51 @@ export default class Statistique{
         return this._nbNouvelles;
     }
 
+    /**
+     * retourne la plus longue nouvelle  en termes de carctères
+     * @returns {*|null}
+     */
     plusLongueNouvelle() {
         if (this._nouvelles.length === 0) return null;
         return this._nouvelles.reduce((longest, current) => current.resume.length > longest.resume.length ? current : longest);
     }
 
+    /**
+     * retourne la nouvelle la plus courte en termes de caractères
+     * @returns {*|null}
+     */
     plusCourteNouvelle() {
         if (this._nouvelles.length === 0) return null;
         return this._nouvelles.reduce((shortest, current) => current.resume.length < shortest.resume.length ? current : shortest);
     }
 
+    /**
+     * retourne la taille moyenne des nouvelles
+     * @returns {number}
+     */
     tailleMoyenne() {
         if (this._nouvelles.length === 0) return 0;
         let total = this._nouvelles.reduce((somme, nouvelle) => somme + nouvelle.resume.length, 0);
         return total / this._nouvelles.length;
     }
 
+    /**
+     * retourne la nouvelle la plus récente
+     * @returns {*|null}
+     */
     plusRecenteNouvelle() {
         if (this._nouvelles.length === 0) return null;
         return this._nouvelles.reduce((recent, current) => new Date(current.date) > new Date(recent.date) ? current : recent);
     }
 
+    /**
+     * retourne la nouvelle la plus ancienne
+     * @returns {*|null}
+     */
     plusAncienneNouvelle() {
         if (this._nouvelles.length === 0) return null;
         return this._nouvelles.reduce((ancien, current) => new Date(current.date) < new Date(ancien.date) ? current : ancien);
     }
-
-
-    // nombreNouvellesSelonCritere(nouvelles, critere){
-    //
-    // }
 
 }
 

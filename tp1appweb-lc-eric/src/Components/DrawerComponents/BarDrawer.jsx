@@ -14,6 +14,7 @@ import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import FeedIcon from '@mui/icons-material/Feed';
 import FormCritere from "../FormComponents/FormCritere.jsx";
+import {FormControlLabel} from "@mui/material";
 
 const drawerWidth = 240;
 
@@ -72,7 +73,7 @@ const DrawerHeader = styled('div')(({ theme }) => ({
     justifyContent: 'flex-end',
 }));
 
-export default function BarDrawer({children}) {
+export default function BarDrawer({children, Decoration}) {
     const theme = useTheme();
     const [open, setOpen] = React.useState(false);
 
@@ -112,6 +113,7 @@ export default function BarDrawer({children}) {
                         <FeedIcon sx={{ mr: 1 }} />
                         LASS & TED NEWS
                     </Typography>
+                    <FormControlLabel sx={{ml:"auto", color: 'accent.main'}} control={Decoration} label="MODE SOMBRE"/>
                 </Toolbar>
             </AppBar>
             <Drawer

@@ -7,8 +7,9 @@ import InfoOutlineSharpIcon from '@mui/icons-material/InfoOutlineSharp';
 
 
 
-export default function NouvelleBody({editer, supprimer, lire, newsProps }) {
+export default function NouvelleBody({editer, supprimer, lire, newsProps}) {
 
+    /*Corps d'une nouvelle affichant les informations de la nouvelle et permettant diverses actions sur la nouvelle (modifier, supprimer, lire)*/
     return (
         <Card
             className={"makeitglass"}
@@ -24,8 +25,6 @@ export default function NouvelleBody({editer, supprimer, lire, newsProps }) {
                     boxShadow: 8
                 }
             }}
-
-
         >
             <CardMedia
                 component="img"
@@ -35,7 +34,6 @@ export default function NouvelleBody({editer, supprimer, lire, newsProps }) {
                 sx={{
                     objectFit: 'cover'
                 }}
-
             />
 
             <Box sx={{ px: 3, pt: 2 , backgroundColor: "transparent"}}>

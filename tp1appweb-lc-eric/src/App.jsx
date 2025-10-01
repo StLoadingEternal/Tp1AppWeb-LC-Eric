@@ -3,9 +3,8 @@ import {useEffect, useState} from "react";
 import Nouvelles from "./Components/Nouvelles.jsx";
 import {NewsContext} from "./Components/Contexts/NewsContext.jsx";
 import MenuUtilisateur from "./Components/MenuUtilisateur.jsx";
-import {Card, CardContent, Container, Grid, Paper, ThemeProvider} from "@mui/material";
+import {Card, CardContent, Container, Grid, Paper, Switch, ThemeProvider} from "@mui/material";
 import Box from "@mui/material/Box";
-
 import {nouvelles} from "./scripts/nouvelles.js";
 import NouvelleModel from "./models/NouvelleModel.js";
 import {UtilisateurContext} from "./Components/Contexts/utilisateurContext.jsx";
@@ -15,10 +14,9 @@ import CritereModel from "./models/CritereModel.js";
 import Typography from "@mui/material/Typography";
 import BarreCriteres from "./Components/BarreCriteres.jsx";
 import BarDrawer from "./Components/DrawerComponents/BarDrawer.jsx";
-import Statistique from "./models/Statistique.js";
+import Statistique from "./scripts/Statistique.js";
 import Statistiques from "./Components/Statistiques.jsx";
-import {themeNouvelles} from "./theme/themeNouvelles.js";
-import {utilisateursJson} from "./scripts/utilisateurs.js";
+import {darkTheme, lightTheme} from "./theme/themeNouvelles.js";
 import Role from "./models/Role.js";
 import {styled} from "@mui/material/styles";
 import {categories} from "./scripts/categorie.js";
@@ -102,6 +100,9 @@ function App() {
     // cet etat permet la selection d'un seul critere
     const [critereSelectedId, setCritereSelection] = useState();
 
+    //Etat du theme du site bascule de clair (false) à dark (true)
+    const [isDarkMode, setIsDarkMode] = useState(false)
+
     // les criteres sont tries en fonction de l'user connecte
     let criteresEnFonctionUser = criteres.filter(cr => cr.noReference === userActu.id);
 
@@ -109,7 +110,17 @@ function App() {
     //L'admin voit toute les nouvelles
     let nouvelleEnFonctionUser = userActu.role === Role.ADMIN ? news : news.filter(n => n.createur === userActu.id);
 
+    //Critere appliquer par l'utilisateur
+    let critereAplliquer = criteres.find(cr => cr.id === critereSelectedId)
 
+
+    /**
+     * Change le theme (light ou dark)
+     * @param e
+     */
+    function changeTheme(e) {
+        setIsDarkMode(e.target.checked);
+    }
 
     // Sauvegarder les elements dans le localStorage en cas de changement sur l'etat news
     useEffect(() => {
@@ -121,6 +132,7 @@ function App() {
         window.localStorage.setItem("criteres", JSON.stringify(criteres));
     }, [criteres]);
 
+    //Composant footer
     const FooterWithTheme = styled(Paper)(({theme}) => ({
         padding: theme.spacing(1),
         textAlign: 'center',
@@ -134,18 +146,27 @@ function App() {
                                         critereSelectedId={critereSelectedId} // on envoie un etat pour gerer la selection de critere
                                         setCritereSelection={setCritereSelection}/>
 
+    //Composant switch passer en composition a bar drawer (sert à changer de thème)
+    const turnTheme =  <Switch
+        checked={isDarkMode}
+        onChange={changeTheme}
+        color="warning"
+        slotProps={{ input: { 'aria-label': 'Dark Mode' } }}
+    />
+
+
     return (
         <>
-            <ThemeProvider theme={themeNouvelles}>
+            <ThemeProvider theme={isDarkMode ? darkTheme : lightTheme }>
                 <UtilisateurContext.Provider value={{userActu, setUserActu}}>
                     <CritereContext.Provider value={{criteres, setCriteres}}>
                         <Box  sx={{
-                            backgroundImage: 'linear-gradient(135deg, #89f7fe 0%, #66a6ff 100%)',
+                            backgroundImage: isDarkMode ? 'linear-gradient(135deg, #0f0f0f 0%, #1a1a1a 100%)': 'linear-gradient(135deg, #89f7fe 0%, #66a6ff 100%)',
                             height: "100%",
                             width: '100%',
                             position: "relative",
                         }}>
-                            <BarDrawer >
+                            <BarDrawer Decoration={turnTheme}>
                                 {barreCritere}
                             </BarDrawer>
                             <Grid
@@ -153,15 +174,20 @@ function App() {
                                 container spacing={1}>
                                 <Grid sx={{ height: "100%", overflowY: 'scroll'}} size={10}>
                                     <NewsContext.Provider value={{news, setNews}}>
+                                        {/*section nouvelle*/}
                                         <Nouvelles
                                             nouvelles={nouvelleEnFonctionUser}
                                             currentUser={userActu}
-                                            critere={criteres.find(cr => cr.id === critereSelectedId)}/> {/* ON envoie le critere selectionne*/}
+                                            critere={critereAplliquer}
+                                        /> {/* ON envoie le critere selectionne*/}
                                     </NewsContext.Provider>
                                 </Grid>
-                                <Grid size={2}>
-                                    <MenuUtilisateur/>
-                                    <Statistiques stat={new Statistique(news)}></Statistiques>
+                                <Grid  size={2}>
+                                    <MenuUtilisateur/>{/* Section utilisateur*/}
+                                    <Statistiques critere={critereAplliquer}
+                                                  nouvelles={nouvelleEnFonctionUser}
+                                                  stat={new Statistique(news)}>
+                                    </Statistiques>{/*section statistique*/}
                                 </Grid>
                             </Grid>
                             <FooterWithTheme>Copyright <span>2025{'\u24C7'}</span> - <strong>LASS & TED NEWS</strong></FooterWithTheme>

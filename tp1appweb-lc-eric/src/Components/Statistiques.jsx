@@ -5,24 +5,24 @@ import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import List from '@mui/material/List';
 import BarChartIcon from '@mui/icons-material/BarChart';
+import appliquerFiltres from "../scripts/filtrerNouvelles.js";
 
-export default function Statistiques({stat}) {
+export default function Statistiques({stat, critere, nouvelles}) {
 
+    //Les différentes statistiques
     const longue = stat.plusLongueNouvelle();
     const courte = stat.plusCourteNouvelle();
-    const moyenne = stat.tailleMoyenne().toFixed(1);
+    const moyenne = stat.tailleMoyenne().toFixed(1);//moyenne en termes de taille des nouvelles
     const recente = stat.plusRecenteNouvelle();
     const ancienne = stat.plusAncienneNouvelle()
 
-    //Affichage des nouvelles en fonction des critères correspondant
+
 
     return (
         <Box
             sx={{
                 width: "100%",
                 padding: 2,
-                color: "black",
-                // background: "linear-gradient(to bottom right, #f0f4ff, #dfe9ff)",
                 backgroundColor: 'secondary.main',
                 borderRadius: 3,
                 boxShadow: 2,
@@ -64,7 +64,7 @@ export default function Statistiques({stat}) {
                     <ListItemText
                         primary={
                             <>
-                                <strong>Plus longue :</strong> {longue.titre} ({longue.resume.length} caractères)
+                                <strong>Plus longue :</strong> {longue?.titre} ({longue?.resume.length} caractères)
                             </>
                         }
                     />
@@ -75,7 +75,7 @@ export default function Statistiques({stat}) {
                     <ListItemText
                         primary={
                             <>
-                                <strong>Plus courte :</strong> {courte.titre} ({courte.resume.length} caractères)
+                                <strong>Plus courte :</strong> {courte?.titre} ({courte?.resume.length} caractères)
                             </>
                         }
                     />
@@ -86,7 +86,7 @@ export default function Statistiques({stat}) {
                     <ListItemText
                         primary={
                             <>
-                                <strong>Plus récente :</strong> {recente.titre} ({recente.date})
+                                <strong>Plus récente :</strong> {recente?.titre} ({recente?.date})
                             </>
                         }
                     />
@@ -97,12 +97,23 @@ export default function Statistiques({stat}) {
                     <ListItemText
                         primary={
                             <>
-                                <strong>Plus ancienne :</strong> {ancienne.titre} ({ancienne.date})
+                                <strong>Plus ancienne :</strong> {ancienne?.titre} ({ancienne?.date})
                             </>
                         }
                     />
                 </ListItem>
-
+                {/*on affiche le nombre de nouvelles par critère appliqué (seulement quand un critère est appliqué)*/}
+                {critere &&
+                    <ListItem>
+                        <ListItemText
+                            primary={
+                                <>
+                                    <strong>Nombres de nouvelles par critères:</strong> {appliquerFiltres(nouvelles, critere).length}
+                                </>
+                            }
+                        />
+                    </ListItem>
+                }
             </List>
         </Box>
     );

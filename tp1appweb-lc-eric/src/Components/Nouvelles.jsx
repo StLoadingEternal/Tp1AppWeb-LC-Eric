@@ -16,8 +16,11 @@ import Role from "../models/Role.js";
 import {CritereContext} from "./Contexts/CritereContext.jsx";
 
 export default function Nouvelles({nouvelles, currentUser, critere}) {
-    //Etat qui indique si un dialog est ouvert
+
+    //Etat qui indique si un dialog est ouvert. aussi indique l'action a réalisé sur une nouvelle(id) quand on ouvre le dialog
     const [openDialog, setOpenDialog] = useState({isEditing: false, id: -1, action: ""});
+
+    //Contexte des criteres
     const critereContext = useContext(CritereContext);
 
     //Contexte des nouvelles
@@ -44,19 +47,26 @@ export default function Nouvelles({nouvelles, currentUser, critere}) {
     }
 
 
-
-
-    //Dialog pour modifier
+    /**
+     * Ouvrir le dialog pour modifier une nouvelle
+     * @param id
+     */
     function editer(id) {
         setOpenDialog({isEditing: true, id: id, action: "editer"});
     }
 
-    //Dialog pour supprimer
+    /**
+     * Ouvrir le dialog pour confirmer une suppression de nouvelle
+     * @param id
+     */
     function supprimer(id) {
         setOpenDialog({isEditing: true, id: id, action: "supprimer"});
     }
 
-    //Dialog pour lire
+    /**
+     * Ouvrir le dialog pour lire le texte complet des nouvelles
+     * @param id
+     */
     function lire(id) {
         setOpenDialog({isEditing: true, id: id, action: "lire"});
     }
@@ -64,6 +74,10 @@ export default function Nouvelles({nouvelles, currentUser, critere}) {
     //Actions qui change l'état
 
     //Suppression de la nouvelle implique la suppression du critere selectionne
+    /**
+     * supprimer une nouvelle. Supprime les critères concernant la nouvelle
+     * @param id
+     */
     function supprimerNouvelle(id) {
         newsContext.setNews(old => old.filter(nouvelle => nouvelle.id !== id));
         if (critere != null){
@@ -74,31 +88,28 @@ export default function Nouvelles({nouvelles, currentUser, critere}) {
         setOpenDialog({isEditing: false, id: -1, action: ""})
     }
 
-    //Modifier une nouvelle
+    /**
+     * Modifer une nouvelle
+     * @param nouvelle
+     */
     function changerNouvelle(nouvelle) {
         newsContext.setNews(old => [nouvelle, ...old.filter(n => n.id !== nouvelle.id)]);
-
-        // newsContext.setNews(old => {
-        //     let nouvelleChanger = old.find(n => parseInt(nouvelle.id) === parseInt(n.id) ).clone();
-        //     nouvelleChanger.titre = nouvelle.titre;
-        //     nouvelleChanger.resume = nouvelle.resume;
-        //     nouvelleChanger.date = nouvelle.date;
-        //     nouvelleChanger.texte = nouvelle.texte;
-        //     nouvelleChanger.image = nouvelle.image;
-        //
-        //     return [nouvelleChanger, ...old.filter(n => n.id !== nouvelle.id)]
-        // })
     }
 
-    //Ajouter
+    /**
+     * Ajouter une nouvelle
+     * @param nouvelle
+     */
     function ajouterNouvelle(nouvelle) {
         nouvelle.id = uuidv4();//Id unique
-        nouvelle.createur = currentUser.id// Id des créateurs
+        nouvelle.createur = currentUser.id// Id du créateur
         newsContext.setNews(old => [nouvelle, ...old]);
     }
 
-    //La nouvelle {id} sur laquelle on effectue une action
+    //La nouvelle {id} sur laquelle on effectue une action (modifier, supprimer, nouvelle nulle => ajout d'une nouvelle)
     const nouvelleSelectionne = newsContext.news.find(n => n.id === openDialog.id);
+
+    //Les nouvelles de l'utilisateurs filtrés par critère appliqué
     const nouvellesFiltres = filtrerNouvelles();
 
     return (
@@ -118,7 +129,7 @@ export default function Nouvelles({nouvelles, currentUser, critere}) {
             >
                 Actualités Sportives Mondiales
             </Typography>
-            {/*Ajout d'une nouvelle au clic. id = -1; seul les journalistes peuvent ajouter*/}
+            {/*Ajout d'une nouvelle au clic. id = -1 => aucune nouvelle n'est passée au formulaire. Seul les journalistes peuvent ajouter*/}
             {currentUser.role !== Role.ADMIN && (
                 <Box sx={{ textAlign: 'center', mb: 3 }}>
                     <Button

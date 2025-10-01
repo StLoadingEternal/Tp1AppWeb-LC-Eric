@@ -14,6 +14,8 @@ export default function NouvelleBody({editer, supprimer, lire, newsProps}) {
         <Card
             className={"makeitglass"}
             sx={{
+                display: 'flex',
+                flexDirection: 'column',
                 maxWidth: 500,
                 height: '100%',
                 margin: "auto",
@@ -56,7 +58,7 @@ export default function NouvelleBody({editer, supprimer, lire, newsProps}) {
                 </Typography>
             </CardContent>
 
-            <CardActions disableSpacing sx={{ px: 2 }}>
+            <CardActions disableSpacing sx={{ px: 2 , mt:"auto"}}>
                 <IconButton aria-label="Modifier" onClick={() => editer(newsProps.id)}>
                     <ModeEditIcon />
                 </IconButton>

@@ -58,10 +58,11 @@ export default function FormNews({changerNouvelle, ajouterNouvelle, nouvelle, on
                 <Grid item xs={12} sm={6}>
                     <TextField
                         name="resume"
-                        label="Résumé"
+                        label="Résumé(140 caractères)"
                         defaultValue={nouvelle?.resume}
                         variant="outlined"
                         fullWidth
+                        inputProps={{ maxLength: 140 }}
                         required
                     />
                 </Grid>

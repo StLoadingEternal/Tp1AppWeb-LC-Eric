@@ -156,7 +156,7 @@ function App() {
                                         <Nouvelles
                                             nouvelles={nouvelleEnFonctionUser}
                                             currentUser={userActu}
-                                            criteres={criteres.find(cr => cr.id === critereSelectedId)}/> {/* ON envoie le critere selectionne*/}
+                                            critere={criteres.find(cr => cr.id === critereSelectedId)}/> {/* ON envoie le critere selectionne*/}
                                     </NewsContext.Provider>
                                 </Grid>
                                 <Grid size={2}>

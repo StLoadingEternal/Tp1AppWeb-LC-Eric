@@ -13,11 +13,12 @@ import TexteDialog from "./DialogComponents/TexteDialog.jsx";
 import Box from "@mui/material/Box";
 import appliquerFiltres from "../scripts/filtrerNouvelles.js";
 import Role from "../models/Role.js";
+import {CritereContext} from "./Contexts/CritereContext.jsx";
 
-export default function Nouvelles({nouvelles, currentUser, criteres}) {
+export default function Nouvelles({nouvelles, currentUser, critere}) {
     //Etat qui indique si un dialog est ouvert
     const [openDialog, setOpenDialog] = useState({isEditing: false, id: -1, action: ""});
-
+    const critereContext = useContext(CritereContext);
 
     //Contexte des nouvelles
     const newsContext = useContext(NewsContext);
@@ -30,7 +31,7 @@ export default function Nouvelles({nouvelles, currentUser, criteres}) {
      * @returns {false|*|boolean}
      */
     function filtrerNouvelles() {
-        return appliquerFiltres(nouvelles, criteres)
+        return appliquerFiltres(nouvelles, critere)
             .map(nouvelle => (
                 <Nouvelle
                     newsProps={nouvelle}
@@ -62,9 +63,14 @@ export default function Nouvelles({nouvelles, currentUser, criteres}) {
 
     //Actions qui change l'état
 
-    //Suppression
+    //Suppression de la nouvelle implique la suppression du critere selectionne
     function supprimerNouvelle(id) {
         newsContext.setNews(old => old.filter(nouvelle => nouvelle.id !== id));
+        if (critere != null){
+            // supprimer le critere appliqu/e
+            critereContext.setCriteres(old => old.filter(c => critere.id !== c.id))
+        }
+
         setOpenDialog({isEditing: false, id: -1, action: ""})
     }
 

@@ -5,7 +5,6 @@ import {NewsContext} from "./Components/Contexts/NewsContext.jsx";
 import MenuUtilisateur from "./Components/MenuUtilisateur.jsx";
 import {Card, CardContent, Container, Grid, Paper, Switch, ThemeProvider} from "@mui/material";
 import Box from "@mui/material/Box";
-import {nouvelles} from "./scripts/nouvelles.js";
 import NouvelleModel from "./models/NouvelleModel.js";
 import {UtilisateurContext} from "./Components/Contexts/utilisateurContext.jsx";
 import {CritereContext} from "./Components/Contexts/CritereContext.jsx";

@@ -142,7 +142,7 @@ export default function Nouvelles({nouvelles, currentUser, critere}) {
                     </Button>
                 </Box>
             )}
-            <Grid container spacing={2}>
+            <Grid sx={{overflowY: 'auto', maxHeight: 'calc(100vh - 64px)'}} container spacing={2}>
                 {nouvellesFiltres}
             </Grid>
 

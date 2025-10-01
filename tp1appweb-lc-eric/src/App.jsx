@@ -28,9 +28,6 @@ function App() {
     //Etat des nouvelles
     const [news, setNews] = useState(genererNouvelles);
 
-    // Categories
-    const [categoriesList, setCategorie] = useState(categories);
-
     //Etat utilisateur actuel son id et son role
     const [userActu, setUserActu] = useState({id: 1, role: Role.ADMIN});
 
@@ -67,7 +64,7 @@ function App() {
     // Sauvegarder les elements dans le localStorage en cas de fermeture
 
     useEffect(() => {
-        const handleBeforeUnload = (event) => {
+        const handleBeforeUnload = () => {
             // sauvegarde
             sauvegarderDonnees("nouvelles",news);
             sauvegarderDonnees("criteres", criteres);
@@ -125,7 +122,7 @@ function App() {
                                 {barreCritere}
                             </BarDrawer>
                             <Grid container spacing={1} >
-                                <Grid  sx={{overflowY: 'auto', maxHeight: 'calc(100vh - 64px)'}} size={{xs: 12, md: 10 }}>
+                                <Grid size={{xs: 12, md: 10 }}>
                                     <NewsContext.Provider value={{news, setNews}}>
                                         {/*section nouvelle*/}
                                         <Nouvelles

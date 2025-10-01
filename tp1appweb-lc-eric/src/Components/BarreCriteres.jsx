@@ -27,14 +27,17 @@ export default function BarreCriteres({criteres, critereSelectedId, setCritereSe
 
 
     return (
-        <Box>
-            <Typography variant="h4" className="grandTitre" gutterBottom>
+        <Box
+        >
+            <Typography variant="h4" className="grandTitre" gutterBottom sx={{
+                fontSize: { xs: '18px', sm: '22px', md: '28px' },
+            }}>
                 Les Critères
             </Typography>
 
             {/* Container scrollable horizontalement */}
             <Box
-                className={"barreCritere"}
+                className={"barreCritereContent"}
             >
                 {critereContext.criteres.length > 0 ? (
                     critereContext.criteres.map(cr => (

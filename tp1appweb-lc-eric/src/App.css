@@ -31,6 +31,7 @@
     margin-top: 10px;
     margin-bottom: 10px;
     letter-spacing: 3px;
+    max-width: 100%;
     text-align: center;
     background: linear-gradient(to right, rgba(168, 191, 160, 0.7), rgba(30, 65, 90, 0.5)); /* Dégradé */
     border-radius: 25px;
@@ -45,17 +46,14 @@
     background: linear-gradient(to right, rgba(168, 191, 160, 1), rgba(30, 65, 90, 1)); /* Dégradé intensifié au survol */
 }
 
-.barreCritere{
+
+.barreCritereContent {
     display: flex;
-    flex-Direction: row;
-    gap: 2px;
-    overflow-x: auto;
-    padding: 2px 10px;
-    justify-content: center;
-    width: max-content;
-
+    flex-wrap: wrap;
+    gap: 16px;
+    padding: 16px;
+    overflow-x: visible;
 }
-
 .appBar{
     background-color: black ;
 }
@@ -63,5 +61,3 @@
 .critereSelected{
     background-color: rgba(198, 231, 248, 0.53)
 }
-
-

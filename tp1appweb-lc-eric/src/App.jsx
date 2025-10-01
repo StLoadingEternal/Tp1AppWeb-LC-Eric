@@ -115,17 +115,17 @@ function App() {
                     <CritereContext.Provider value={{criteres, setCriteres}}>
                         <Box  sx={{
                             backgroundImage: isDarkMode ? 'linear-gradient(135deg, #0f0f0f 0%, #1a1a1a 100%)': 'linear-gradient(135deg, #89f7fe 0%, #66a6ff 100%)',
-                            height: "100%",
+                            minHeight: "100%",
                             width: '100%',
                             position: "relative",
+                            display: 'flex',
+                            flexDirection: 'column',
                         }}>
                             <BarDrawer Decoration={turnTheme}>
                                 {barreCritere}
                             </BarDrawer>
-                            <Grid
-                                className={"corps"}
-                                container spacing={1}>
-                                <Grid sx={{ height: "100%", overflowY: 'scroll'}} size={10}>
+                            <Grid container spacing={1} >
+                                <Grid  sx={{overflowY: 'scroll'}} size={{xs: 12, md: 10 }}>
                                     <NewsContext.Provider value={{news, setNews}}>
                                         {/*section nouvelle*/}
                                         <Nouvelles
@@ -135,7 +135,7 @@ function App() {
                                         /> {/* ON envoie le critere selectionne*/}
                                     </NewsContext.Provider>
                                 </Grid>
-                                <Grid  size={2}>
+                                <Grid  size={{ xs: 12, md: 2}}>
                                     <MenuUtilisateur/>{/* Section utilisateur*/}
                                     <Statistiques critere={critereAplliquer}
                                                   nouvelles={nouvelleEnFonctionUser}

@@ -125,7 +125,7 @@ function App() {
                                 {barreCritere}
                             </BarDrawer>
                             <Grid container spacing={1} >
-                                <Grid  sx={{overflowY: 'scroll'}} size={{xs: 12, md: 10 }}>
+                                <Grid  sx={{overflowY: 'auto', maxHeight: 'calc(100vh - 64px)'}} size={{xs: 12, md: 10 }}>
                                     <NewsContext.Provider value={{news, setNews}}>
                                         {/*section nouvelle*/}
                                         <Nouvelles

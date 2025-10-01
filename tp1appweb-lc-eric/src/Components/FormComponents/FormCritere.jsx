@@ -35,14 +35,14 @@ export default function FormCritere() {
         /* Formulaire d'ajout de critère*/
         <form onSubmit={handleSubmit}>
             <Grid container spacing={2} padding={2}>
-                <Grid item xs={12}>
+                <Grid >
                     <Typography variant="h6" textAlign="left">
                         Ajouter un critère
                     </Typography>
                 </Grid>
 
                 {/* Titre */}
-                <Grid item xs={12} sm={6}>
+                <Grid  >
                     <TextField
                         name="titre"
                         label="Titre"
@@ -54,7 +54,7 @@ export default function FormCritere() {
                 </Grid>
 
                 {/* Date du critère (Mois Année) */}
-                <Grid item xs={12} sm={6}>
+                <Grid >
                     <TextField
                         name="dateCritere"
                         label="Date du critère"
@@ -67,7 +67,7 @@ export default function FormCritere() {
                 </Grid>
 
                 {/* Année des nouvelles */}
-                <Grid item xs={12} sm={6}>
+                <Grid >
                     <TextField
                         name="anneeNouvelle"
                         label="Année des nouvelles"
@@ -80,12 +80,12 @@ export default function FormCritere() {
                 </Grid>
 
                 {/* Mots-clés */}
-                <Grid item xs={12}>
+                <Grid >
                     <Typography variant="subtitle1" textAlign="left">
                         Mots-clés (3 maximum)
                     </Typography>
                     <Grid container spacing={2}>
-                        <Grid item xs={12} sm={4}>
+                        <Grid >
                             <TextField
                                 name="motCle1"
                                 label="Mot-clé 1"
@@ -94,7 +94,7 @@ export default function FormCritere() {
                                 required
                             />
                         </Grid>
-                        <Grid item xs={12} sm={4}>
+                        <Grid >
                             <TextField
                                 name="motCle2"
                                 label="Mot-clé 2"
@@ -103,7 +103,7 @@ export default function FormCritere() {
 
                             />
                         </Grid>
-                        <Grid item xs={12} sm={4}>
+                        <Grid >
                             <TextField
                                 name="motCle3"
                                 label="Mot-clé 3"
@@ -119,7 +119,7 @@ export default function FormCritere() {
                 <CategorieDeroulante></CategorieDeroulante>
 
                 {/* Bouton de soumission */}
-                <Grid item xs={12} textAlign="center">
+                <Grid textAlign="center">
                     <Button variant="contained" color="primary" type="submit">
                         Créer un nouveau critère
                     </Button>

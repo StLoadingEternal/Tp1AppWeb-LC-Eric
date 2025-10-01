@@ -39,11 +39,11 @@ export default function FormNews({changerNouvelle, ajouterNouvelle, nouvelle, on
         /*Modification ou ajout d'un nouveau critère*/
         <form onSubmit={handleSubmit}>
             <Grid container spacing={2} padding={4}>
-                <Grid item xs={12}>
+                <Grid>
                     <Typography variant="h4" textAlign="center">{nouvelle ? "Modifier une nouvelle" : "Ajouter une nouvelle"}</Typography>
                 </Grid>
 
-                <Grid item xs={12} sm={6}>
+                <Grid>
                     <TextField
                         name="titre"
                         label="Titre"
@@ -55,7 +55,7 @@ export default function FormNews({changerNouvelle, ajouterNouvelle, nouvelle, on
                     />
                 </Grid>
 
-                <Grid item xs={12} sm={6}>
+                <Grid>
                     <TextField
                         name="resume"
                         label="Résumé(140 caractères)"
@@ -67,7 +67,7 @@ export default function FormNews({changerNouvelle, ajouterNouvelle, nouvelle, on
                     />
                 </Grid>
 
-                <Grid item xs={12} sm={6}>
+                <Grid>
                     <TextField
                         name="texte"
                         label="Contenu"
@@ -80,7 +80,7 @@ export default function FormNews({changerNouvelle, ajouterNouvelle, nouvelle, on
                     />
                 </Grid>
 
-                <Grid item xs={12} sm={6}>
+                <Grid>
                     <TextField
                         name="image"
                         label="Image (URL)"
@@ -94,7 +94,7 @@ export default function FormNews({changerNouvelle, ajouterNouvelle, nouvelle, on
 
                 <CategorieDeroulante/>
 
-                <Grid item xs={12} sm={6}>
+                <Grid>
                     <TextField
                         name="date"
                         label="Date"
@@ -107,7 +107,7 @@ export default function FormNews({changerNouvelle, ajouterNouvelle, nouvelle, on
                     />
                 </Grid>
 
-                <Grid item xs={12} sm={6} textAlign="center">
+                <Grid textAlign="center">
                     <Button variant="contained" color="primary" type="submit">
                         Enregistrer
                     </Button>

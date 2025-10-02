@@ -20,7 +20,7 @@ export default class Statistique{
      */
     plusLongueNouvelle() {
         if (this._nouvelles.length === 0) return null;
-        return this._nouvelles.reduce((longest, current) => current.resume.length > longest.resume.length ? current : longest);
+        return this._nouvelles.reduce((longest, current) => current.texte.trim().length > longest.texte.trim().length ? current : longest);
     }
 
     /**
@@ -29,7 +29,7 @@ export default class Statistique{
      */
     plusCourteNouvelle() {
         if (this._nouvelles.length === 0) return null;
-        return this._nouvelles.reduce((shortest, current) => current.resume.length < shortest.resume.length ? current : shortest);
+        return this._nouvelles.reduce((shortest, current) => current.texte.trim().length < shortest.texte.trim().length ? current : shortest);
     }
 
     /**
@@ -38,7 +38,7 @@ export default class Statistique{
      */
     tailleMoyenne() {
         if (this._nouvelles.length === 0) return 0;
-        let total = this._nouvelles.reduce((somme, nouvelle) => somme + nouvelle.resume.length, 0);
+        let total = this._nouvelles.reduce((somme, nouvelle) => somme + nouvelle.texte.trim().length, 0);
         return total / this._nouvelles.length;
     }
 

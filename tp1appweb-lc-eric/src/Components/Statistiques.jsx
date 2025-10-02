@@ -64,7 +64,7 @@ export default function Statistiques({stat, critere, nouvelles}) {
                     <ListItemText
                         primary={
                             <>
-                                <strong>Plus longue :</strong> {longue?.titre} ({longue?.resume.length} caractères)
+                                <strong>Plus longue :</strong> {longue?.titre} ({longue?.texte.trim().length} caractères)
                             </>
                         }
                     />
@@ -75,7 +75,7 @@ export default function Statistiques({stat, critere, nouvelles}) {
                     <ListItemText
                         primary={
                             <>
-                                <strong>Plus courte :</strong> {courte?.titre} ({courte?.resume.length} caractères)
+                                <strong>Plus courte :</strong> {courte?.titre} ({courte?.texte.trim().length} caractères)
                             </>
                         }
                     />
